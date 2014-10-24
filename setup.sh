@@ -15,8 +15,8 @@ install)
 	mysql -u $user -p$pswd < db/ecommerce.sql
 	mysql -u $user -p$pswd < data/ecommerce-dump.sql
 
-	#mkdir -p "$HOME/public_html/MyApp"
-	#cp -rf web/* "$HOME/public_html/MyApp"
+	mkdir -p "$HOME/public_html/MyApp"
+	cp -rf web/* "$HOME/public_html/MyApp"
 
 	echo "done!"
 	;;
@@ -25,7 +25,7 @@ uninstall)
 	echo "Uninstalling"
 	
 	mysql -u $user -p$pswd -e "DROP DATABASE ecommerce;" 
-	#rm -rf "$HOME/public_html/MyApp"
+	rm -rf "$HOME/public_html/MyApp"
 
 	echo "done!"
 	;;
