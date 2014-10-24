@@ -3,7 +3,11 @@ bgse-workbench
 
 The BGSE workbench provides a template to construct a statistical web service. 
 
-The application is made up of a number of components.
+The application is made up of three components.
+
+ - DB Component:
+ - Analysis Component:
+ - Web Interface:
 
 Instalation 
 ==============
