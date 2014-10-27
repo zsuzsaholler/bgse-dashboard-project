@@ -16,9 +16,9 @@ function connect_to_db() {
 
 function document_header() {
     $str = <<<MY_MARKER
-<link rel='stylesheet' href='../data/files/nv.d3.css' type='text/css'>
-<script src='../data/files/d3.v2.js' type='text/javascript' ></script>
-<script src='../data/files/nv.d3.js' type='text/javascript' ></script>
+<link rel='stylesheet' href='files/nv.d3.css' type='text/css'>
+<script src='files/d3.v2.js' type='text/javascript' ></script>
+<script src='files/nv.d3.js' type='text/javascript' ></script>
 <script>
     var mycharts = [];
     function update_data_charts() {

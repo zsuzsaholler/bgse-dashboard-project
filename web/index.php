@@ -67,7 +67,7 @@ function show_content(optionsId) {
 			</p>
 		</div>	
 
-		<div id="data">
+		<div id="data" style="display: none">
 			<h2>Data</h2>
 	                <?php include 'data.php' ?>
 		</div>	
