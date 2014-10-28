@@ -112,6 +112,7 @@ INSERT INTO `suppliers` VALUES (1,'Exotic Liquids','Charlotte Cooper','Purchasin
 /*!40000 ALTER TABLE `suppliers` ENABLE KEYS */;
 UNLOCK TABLES;
 
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
