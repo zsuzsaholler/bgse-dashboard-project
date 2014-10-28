@@ -12,8 +12,8 @@ case $cmd in
 install)
 	echo "Installing"
 
-	mysql -u $user < db/ecommerce.sql
-	mysql -u $user < data/ecommerce-dump.sql
+	mysql -u $user -p$pswd < db/ecommerce.sql
+	mysql -u $user -p$pswd < data/ecommerce-dump.sql
 
 	mkdir -p "$HOME/public_html/MyApp"
 	cp -rf web/* "$HOME/public_html/MyApp"
@@ -24,7 +24,7 @@ install)
 uninstall)
 	echo "Uninstalling"
 	
-	mysql -u $user -e "DROP DATABASE ecommerce;" 
+	mysql -u $user -p$pswd -e "DROP DATABASE ecommerce;" 
 	rm -rf "$HOME/public_html/MyApp"
 
 	echo "done!"
