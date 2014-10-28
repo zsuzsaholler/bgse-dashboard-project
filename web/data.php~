@@ -23,12 +23,12 @@ query_and_print_table($query,$title);
 echo "Comment 2";
 
 // query_and_print_graph: Needs two columns: the first one with labels, the second one with values of the graph
-$query = "SELECT ProductName, UnitPrice FROM ecommerce.products ORDER BY UnitPrice DESC LIMIT 10";
+$query = "SELECT ProductName, UnitPrice FROM ecommerce.Products ORDER BY UnitPrice DESC LIMIT 10";
 $title = "Top products";
 query_and_print_graph($query,$title,"Euros");
 echo "Comment 3";
 
-$query = "SELECT ProductName, UnitPrice FROM ecommerce.products ORDER BY UnitPrice ASC LIMIT 10";
+$query = "SELECT ProductName, UnitPrice FROM ecommerce.Products ORDER BY UnitPrice ASC LIMIT 10";
 $title = "Top cheap products";
 query_and_print_graph($query,$title,"Euros");
 echo "Comment 4";
