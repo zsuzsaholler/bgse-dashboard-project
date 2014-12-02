@@ -29,7 +29,7 @@ x <- seq(min(X[,c]),max(X[,c]),0.01)
 p <- rep(0,length(x))
 for( i in 1:length(x) ){
  cat('.')
- eta  <- beta[1] + x[i]*beta[1+c] + X[1,setdiff(1:10,c)] %*% beta[ 1+setdiff(1:10,c) ]
+ eta  <- beta[1] + x[i]*beta[1+c] + colMeans(X[,setdiff(1:10,c)]) %*% beta[ 1+setdiff(1:10,c) ]
  p[i] <- inv.link(eta)
  
  query <- sprintf('INSERT INTO analysis_prob VALUES (\'coef%s\',%f,%f);',c,x[i],p[i])
