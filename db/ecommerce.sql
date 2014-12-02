@@ -220,3 +220,33 @@ CREATE TABLE `suppliers` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+CREATE TABLE `analysis_data_table` (
+  `y`   float(5) NOT NULL,
+  `x01` float(5) DEFAULT NULL,
+  `x02` float(5) DEFAULT NULL,
+  `x03` float(5) DEFAULT NULL,
+  `x04` float(5) DEFAULT NULL,
+  `x05` float(5) DEFAULT NULL,
+  `x06` float(5) DEFAULT NULL,
+  `x07` float(5) DEFAULT NULL,
+  `x08` float(5) DEFAULT NULL,
+  `x09` float(5) DEFAULT NULL,
+  `x10` float(5) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE `analysis_estimates` (
+  `coef`    varchar(40) DEFAULT NULL,
+  `estimate`    float(5) DEFAULT NULL,
+  `stderr`      float(5) DEFAULT NULL,
+  `zval`        float(5) DEFAULT NULL,
+  `pval`        float(5) DEFAULT NULL,
+  PRIMARY KEY (`coef`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE `analysis_prob` (
+  `coef`    varchar(40) DEFAULT NULL,
+  `x`       float(5) DEFAULT NULL,
+  `p`       float(5) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+/*CREATE TABLE `analsys_analytics_estimates` ()*/

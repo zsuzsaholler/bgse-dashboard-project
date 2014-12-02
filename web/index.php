@@ -67,18 +67,11 @@ function show_content(optionsId) {
 			</p>
 		</div>	
 
-		<div id="data" style="display: none">
-			<h2>Data</h2>
-	                <?php include 'data.php' ?>
-		</div>	
-
-		<div id="analysis" style="display: none">
-			<h2>Analysis</h2>
-		</div>
+                <?php include 'data_and_analysis.php' ?>
 	
 	</div>
 
-	<div id="footer">Last update: </div>
+	<div id="footer">My App </div>
 
 </body>
 </html>
