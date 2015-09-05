@@ -1,7 +1,7 @@
-bgse-workbench
+bgse-dashboard-project
 ==============
 
-The BGSE workbench provides a template to construct a statistical web service. 
+The BGSE Dashboard project provides a simple template to construct a web service. 
 
 The application is made up of three components.
 
