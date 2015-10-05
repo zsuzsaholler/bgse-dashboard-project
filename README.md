@@ -1,16 +1,15 @@
 # Product recommendation and customer analysis
-### Data Science Project
-
-##Project team: Gaston Besanson, Stefano Costantini, Laura Cozma & Jordi Zamora Munt
 
 ### Overview
 
-For this project, we have implemented a product recommendation algorithm and carried out customer analysis using LASSO regression. We had to objectives:
+This project implements a product recommendation algorithm and carries out customer analysis using LASSO regression. 
+
+The objectives of the project are:
 
 - Develop a set of product recommendation rules, based on the Apriori algorithm
 - Rank customers on the basis of their marginal contribution to revenues.
 
-We believe that this information could be used by a marketing department to develop more targeted campaigns.
+The ultimate goal is to provide information that can be used by a marketing department to develop more targeted campaigns.
 
 ### Structure
 
@@ -38,7 +37,6 @@ The `R` analysis relies on the following packages.
 - `arules`
 - `lars`
 
-Note that the installation of the `igraph` package could require 2-3 minutes of the virtual machine.
+## Acknowledgments
 
-
-
+This project is based on code by: Guglielmo Bartolozzi, Gaston Besanson, Christian Brownlees, Stefano Costantini, Laura Cozma, Jordi Zamora Munt
