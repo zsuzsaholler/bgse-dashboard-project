@@ -1,4 +1,4 @@
-# Product recommendation and customer analysis
+# BGSE Dashboard Project: Product Recommendation and Customer Analysis
 
 ### Overview
 
