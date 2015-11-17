@@ -38,8 +38,6 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `mydb`.`Artists` (
   `artistID` INT NOT NULL COMMENT '',
   `artistName` VARCHAR(45) NULL COMMENT '',
-  `artistURL` VARCHAR(100) NULL COMMENT '',
-  `artistJPEG` VARCHAR(100) NULL COMMENT '',
   PRIMARY KEY (`artistID`)  COMMENT '')
 ENGINE = InnoDB;
 
@@ -133,11 +131,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User_Tags` (
     REFERENCES `mydb`.`Users` (`userID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_User_Tags_Artists1`
-    FOREIGN KEY (`artistID`)
-    REFERENCES `mydb`.`Artists` (`artistID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  #CONSTRAINT `fk_User_Tags_Artists1`
+    #FOREIGN KEY (`artistID`)
+    #REFERENCES `mydb`.`Artists` (`artistID`)
+    #ON DELETE NO ACTION
+    #ON UPDATE NO ACTION,
   CONSTRAINT `fk_User_Tags_Tags1`
     FOREIGN KEY (`tagID`)
     REFERENCES `mydb`.`Tags` (`tagID`)
@@ -161,25 +159,34 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- LOAD DATA INTO TABLES
 USE mydb;
 
+LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/user_friends.dat' 
+INTO TABLE Users
+FIELDS TERMINATED BY '\t' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 LINES;
+SHOW WARNINGS;
+
 LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/artists.dat' 
 INTO TABLE Artists
 FIELDS TERMINATED BY '\t' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 LINES;
-
-SHOW WARNINGS;
+SET max_error_count=220, sql_mode='';
+SHOW WARNINGS; 
 
 LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/tags.dat' 
 INTO TABLE Tags
 FIELDS TERMINATED BY '\t' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 LINES;
+SHOW WARNINGS;
 
-LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/user_friends.dat' 
-INTO TABLE Users
+LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/user_taggedartists.dat' 
+INTO TABLE User_Tags
 FIELDS TERMINATED BY '\t' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 LINES;
+SHOW ERRORS;
 
 LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/user_artists.dat' 
 INTO TABLE User_Artists
@@ -193,10 +200,33 @@ FIELDS TERMINATED BY '\t'
 LINES TERMINATED BY '\n' 
 IGNORE 1 LINES;
 
-LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/user_taggedartists.dat' 
-INTO TABLE User_Tags
-FIELDS TERMINATED BY '\t' 
-LINES TERMINATED BY '\n' 
-IGNORE 1 LINES;
+#SELECT DISTINCT(User_Tags.artistID) FROM User_Tags 
+#LEFT OUTER JOIN Artists ON User_Tags.artistID = Artists.artistID
+#WHERE Artists.artistID IS NULL;
 
-SELECT * FROM Artists LIMIT 1;
+DROP TABLE IF EXISTS `mydb`.`User_Tags1` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`User_Tags1` AS
+	SELECT * FROM User_Tags
+	WHERE User_Tags.artistID IN (SELECT artistID FROM Artists);
+
+ALTER TABLE `mydb`.`User_Tags1` 	
+ADD PRIMARY KEY (`userID`, `artistID`, `tagID`)  COMMENT '',
+  ADD CONSTRAINT `fk_User_Tags1_Users1`
+    FOREIGN KEY (`userID`)
+    REFERENCES `mydb`.`Users` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_User_Tags1_Artists1`
+    FOREIGN KEY (`artistID`)
+    REFERENCES `mydb`.`Artists` (`artistID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_User_Tags1_Tags1`
+    FOREIGN KEY (`tagID`)
+    REFERENCES `mydb`.`Tags` (`tagID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+
+
