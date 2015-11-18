@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `mydb`.`Artists` ;
 SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `mydb`.`Artists` (
   `artistID` INT NOT NULL COMMENT '',
-  `artistName` VARCHAR(45) NULL COMMENT '',
+  `artistName` VARCHAR(114) NULL COMMENT '',
   PRIMARY KEY (`artistID`)  COMMENT '')
 ENGINE = InnoDB;
 
@@ -163,15 +163,17 @@ LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_Busin
 INTO TABLE Users
 FIELDS TERMINATED BY '\t' 
 LINES TERMINATED BY '\n' 
-IGNORE 1 LINES;
+IGNORE 1 LINES
+(userID, @dummy);
 SHOW WARNINGS;
 
 LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/artists.dat' 
 INTO TABLE Artists
 FIELDS TERMINATED BY '\t' 
 LINES TERMINATED BY '\n' 
-IGNORE 1 LINES;
-SET max_error_count=220, sql_mode='';
+IGNORE 1 LINES
+(artistID, artistName, @dummy, @dummy);
+#SET max_error_count=220, sql_mode='';
 SHOW WARNINGS; 
 
 LOAD DATA LOCAL INFILE '/Users/annekespeijers/Desktop/BGSE/DataWarehousing_BusinessIntelligence/Project/tags.dat' 
