@@ -131,11 +131,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User_Tags` (
     REFERENCES `mydb`.`Users` (`userID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  #CONSTRAINT `fk_User_Tags_Artists1`
-    #FOREIGN KEY (`artistID`)
-    #REFERENCES `mydb`.`Artists` (`artistID`)
-    #ON DELETE NO ACTION
-    #ON UPDATE NO ACTION,
+  CONSTRAINT `fk_User_Tags_Artists1`
+    FOREIGN KEY (`artistID`)
+    REFERENCES `mydb`.`Artists` (`artistID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_User_Tags_Tags1`
     FOREIGN KEY (`tagID`)
     REFERENCES `mydb`.`Tags` (`tagID`)
