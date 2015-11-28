@@ -151,6 +151,37 @@ CREATE INDEX `fk_User_Tags_Tags1_idx` ON `mydb`.`User_Tags` (`tagID` ASC)  COMME
 
 SHOW WARNINGS;
 
+--
+-- Table structure for table `Afin_Words`
+--
+
+DROP TABLE IF EXISTS `Afin_Words`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Afin_Words` (
+  `word` varchar(30) NOT NULL DEFAULT '',
+  `scores` int(11) NOT NULL,
+  PRIMARY KEY (`word`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Tags_Classified`
+--
+
+DROP TABLE IF EXISTS `Tags_Classified`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Tags_Classified` (
+  `tagID` int(11) NOT NULL,
+  `tagValue` varchar(500) DEFAULT NULL,
+  `sentiment` int(11) NOT NULL,
+  PRIMARY KEY (`tagID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -150,3 +150,39 @@ DROP TABLE IF EXISTS `importdb`.`User_Tags` ;
 CREATE TABLE IF NOT EXISTS `importdb`.`User_Tags` AS
 	SELECT * FROM User_Tags_full
 	WHERE User_Tags_full.artistID IN (SELECT artistID FROM Artists);
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Afin_Words`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `importdb`.`Afin_Words` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `importdb`.`Afin_Words` (
+  `word` VARCHAR(30) NULL COMMENT '',
+  `scores` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`word`)  COMMENT '');
+
+LOAD DATA LOCAL INFILE '/home/zsuzsa/Documents/project/data/AFINN-111.txt' 
+INTO TABLE Afin_Words
+FIELDS TERMINATED BY '\t' 
+LINES TERMINATED BY '\n';
+SHOW ERRORS;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Tags_Classified`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `importdb`.`Tags_Classified` ;
+
+SHOW WARNINGS;
+CREATE TABLE IF NOT EXISTS `importdb`.`Tags_Classified` (
+  `tagID` INT NOT NULL COMMENT '',
+  `tagValue` VARCHAR(500) NULL COMMENT '',
+  `sentiment` INT NOT NULL COMMENT '',
+  PRIMARY KEY (`tagID`)  COMMENT '');
+
+LOAD DATA LOCAL INFILE '/home/zsuzsa/Documents/project/data/sample.csv' 
+INTO TABLE Tags_Classified
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
+SHOW ERRORS;
