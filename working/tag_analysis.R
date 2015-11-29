@@ -68,10 +68,6 @@ for (elements in afin_list_split) {
   names(scores.classification)[i+3] = sentiment
 }
 
-scores.classification[,14] = (-5)*scores.classification[,4] + (-4)*scores.classification[,5] + (-3)*scores.classification[,6] +
-  (-2)*scores.classification[,7] + (-1)*scores.classification[,8] + (1)*scores.classification[,9] + (2)*scores.classification[,10] +
-  + (3)*scores.classification[,11] + (4)*scores.classification[,12] + (5)*scores.classification[,13]
-
 scores.classification[,4:13] = scores.classification[,4:13] > 0
 scores.classification[,4:13] = lapply(scores.classification[,4:13],function(x){factor(x,levels=c("TRUE","FALSE"))})
 
@@ -102,6 +98,10 @@ for (elements in afin_list_split) {
   scores.all = cbind(scores.all, sentimentScore(tags,elements[,1])[,3])
   names(scores.all)[i+2] = sentiment
 }
+
+scores.all[,3:12] = scores.all[,3:12] > 0
+scores.all[,3:12] = lapply(scores.all[,3:12],function(x){factor(x,levels=c("TRUE","FALSE"))})
+
 scores.all = cbind(scores.all , predicted = predict(classifier, scores.all[,3:12]))
 
 
