@@ -84,10 +84,58 @@ for (elements in afin_list_split) {
     names(scores.classification)[i+3] = sentiment
 }
 
+scores.classification[,4:13] = scores.classification[,4:13] > 0
+scores.classification[,4:13] = lapply(scores.classification[,4:13],function(x){factor(x,levels=c("TRUE","FALSE"))})
+
+##Split sample data to training and test set 
+train.sample = sample(unlist(scores.classification[,1]),200)
+train.sample = scores.classification$tagID %in% train.sample
+scores.classification.train = scores.classification[train.sample,]
+scores.classification.test = scores.classification[!train.sample,]
+##run the naive bayes algorithm using 10 categories of words from (-5 to 5)
+##and sentiments positive-neutral-negative (1 0 -1) for tags
+classifier <- naiveBayes(scores.classification.train[,4:13], unlist(scores.classification.train[,3]))
+scores.classification = cbind(scores.classification , predicted = predict(classifier, scores.classification[,4:13]))
+##display the confusion table for the classification ran on training and test data
+confTable.train <- table(predict(classifier, scores.classification.train[,4:13]), unlist(scores.classification.train[,3]),
+                         dnn=list('predicted','actual'))
+confTable.test <- table(predict(classifier, scores.classification.test[,4:13]), unlist(scores.classification.test[,3]),
+                        dnn=list('predicted','actual'))
+#ideas to make it better: remove band names and genres, add words from the classified set
+confTable.train
+confTable.test
+
+#Run classification on all of the tags
+scores.all = tags
+i=0
+for (elements in afin_list_split) {
+    i=i+1
+    sentiment = elements[1,2]
+    scores.all = cbind(scores.all, sentimentScore(tags,elements[,1])[,3])
+    names(scores.all)[i+2] = sentiment
+}
+
 scores.all[,3:12] = scores.all[,3:12] > 0
 scores.all[,3:12] = lapply(scores.all[,3:12],function(x){factor(x,levels=c("TRUE","FALSE"))})
 
 scores.all = cbind(scores.all , predicted = predict(classifier, scores.all[,3:12]))
+
+user_tags <- dbReadTable(con, "User_TagsFINAL")
+user_tags_sentiment <- merge(user_tags, scores.all, by.x="tagID", by.y="tagID")
+by_artist <- group_by(user_tags_sentiment, artistIDNEW)
+X2 <- as.data.frame(summarise(by_artist, positive_tags = sum(predicted %in% 1), positive_to_total_tags = positive_tags/sum(predicted %in% c(-1,0,1))))
+
+########## Tag count of users
+by_user <- group_by(user_tags, userID)
+usertag_count <- as.data.frame(summarise(by_user, tagCount=length(tagID) ))
+
+user_tags_usertag_count <- merge(user_tags, usertag_count, by.x="userID", by.y="userID")
+by_artist <- group_by(user_tags_usertag_count, artistIDNEW)
+X3 <- as.data.frame(summarise(by_artist, UserMeanTagCount=mean(tagCount)))
+
+RegressionVars <- merge(X2, X3, by.x="artistIDNEW", by.y="artistIDNEW")
+RegressionVars <- merge(RegressionVars, X1, by.x="artistIDNEW", by.y="artistIDNEW")
+
 
 
 
