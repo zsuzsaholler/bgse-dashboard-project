@@ -1,6 +1,8 @@
 library(RMySQL)
 library(igraph)
 library(dplyr)
+library("stringr")
+library(e1071)
 
 #connect to db
 con <- dbConnect(RMySQL::MySQL(), 
@@ -29,9 +31,6 @@ by_artist <- group_by(user_artists_centrality, artistIDNEW)
 X1 <- as.data.frame(summarise(by_artist, mean = mean(centrality)))
 
 ########## Tag sentiment analysis
-library("stringr")
-library(e1071)
-
 tags <- dbReadTable(con, "Tags")
 
 #Loading in tag sample with sentiments assigned
