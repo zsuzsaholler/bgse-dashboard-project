@@ -15,6 +15,11 @@ con <- dbConnect(RMySQL::MySQL(),
 #Show tables
 #dbListTables(con, mydb)
 
+########## Dependent Variable - Listen Counts per Artists
+user_artists <- dbReadTable(con, "User_ArtistsFINAL")
+by_artist <- group_by(user_artists, artistIDNEW)
+X0 <- as.data.frame(summarise(by_artist, listen_count = sum(listens)))
+
 ########## Centrality
 user_friends <- dbReadTable(con, "User_Friends")
 graph <- graph.data.frame(user_friends)
@@ -24,11 +29,10 @@ ev_obj_social <- evcent(s641_social_undirected)
 eigen_social <- ev_obj_social$vector
 user_centrality <- data.frame(as.numeric(V(graph)$name),eigen_social)
 colnames(user_centrality) <- c("userID", "centrality")
-user_artists <- dbReadTable(con, "User_ArtistsFINAL")
 
 user_artists_centrality <- merge(user_artists, user_centrality, by.x="userID", by.y="userID")
 by_artist <- group_by(user_artists_centrality, artistIDNEW)
-X1 <- as.data.frame(summarise(by_artist, mean = mean(centrality)))
+X1 <- as.data.frame(summarise(by_artist, mean_user_central = mean(centrality)))
 
 ########## Tag sentiment analysis
 tags <- dbReadTable(con, "Tags")
@@ -131,11 +135,13 @@ usertag_count <- as.data.frame(summarise(by_user, tagCount=length(tagID) ))
 
 user_tags_usertag_count <- merge(user_tags, usertag_count, by.x="userID", by.y="userID")
 by_artist <- group_by(user_tags_usertag_count, artistIDNEW)
-X3 <- as.data.frame(summarise(by_artist, UserMeanTagCount=mean(tagCount)))
+X3 <- as.data.frame(summarise(by_artist, avg_tag_count = mean(tagCount)))
+
+
 
 RegressionVars <- merge(X2, X3, by.x="artistIDNEW", by.y="artistIDNEW")
-RegressionVars <- merge(RegressionVars, X1, by.x="artistIDNEW", by.y="artistIDNEW")
-
+RegressionVars <- merge(X1, RegressionVars, by.x="artistIDNEW", by.y="artistIDNEW")
+RegressionVars <- merge(X0, RegressionVars, by.x="artistIDNEW", by.y="artistIDNEW")
 
 
 
