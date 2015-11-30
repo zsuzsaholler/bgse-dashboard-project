@@ -1,120 +1,129 @@
 library(RMySQL)
-
-#Connection to SQL
-db = dbConnect(MySQL(), user='root', password='root', dbname='ecommerce', host='localhost')
-
-##### GENERATING THE CATEGORIES MAP
-
 library(igraph)
+library(dplyr)
 
-# Import data
+#connect to db
+con <- dbConnect(RMySQL::MySQL(), 
+                 username = "root",
+                 password = "",
+                 host = "127.0.0.1",
+                 port = 3306,
+                 dbname = "mydb")
 
-result = dbSendQuery(db, "SELECT C1.CategoryName as Cat1, 
-       		                C2.CategoryName as Cat2,
-       		                Count(DISTINCT O1.OrderID) as Weight
-			                    FROM products P1
-       		                JOIN products P2
-         	                ON P1.ProductID != P2.ProductID 
-        	                JOIN categories C1 on P1.CategoryID=C1.CategoryID 
-        	                JOIN categories C2 on P2.CategoryID=C2.CategoryID
-       		                LEFT JOIN order_details O1
-                          INNER JOIN order_details O2
-                          ON O1.OrderID = O2.OrderID
-         	                ON O1.ProductID = P1.ProductId
-                          AND O2.ProductID = P2.ProductID 
-  			                  WHERE P1.CategoryID > P2.CategoryID          
-			                    GROUP  BY P1.CategoryID, P2.CategoryID
-			                    ORDER BY Weight DESC")
-relations = fetch(result, n=-1)
-colnames(relations) = c("from","to","weight")
+#Show tables
+#dbListTables(con, mydb)
 
-result = dbSendQuery(db, "SELECT C1.CategoryName, SUM(O1.UnitPrice*O1.Quantity) as Revenue
-                          FROM products P1
-                          JOIN categories C1
-                          ON P1.CategoryID= C1.CategoryID
-                          LEFT JOIN ecommerce.order_details O1
-                          ON O1.ProductID = P1.ProductId
-                          GROUP BY CategoryName
-                          ORDER BY Revenue DESC")
-totalrevenue = fetch(result, n=-1)
+########## Centrality
+user_friends <- dbReadTable(con, "User_Friends")
+graph <- graph.data.frame(user_friends)
 
-# Load (DIRECTED) graph from data frame 
-g <- graph.data.frame(relations, directed=FALSE)
+s641_social_undirected <- as.undirected(graph, mode='collapse')
+ev_obj_social <- evcent(s641_social_undirected)
+eigen_social <- ev_obj_social$vector
+user_centrality <- data.frame(as.numeric(V(graph)$name),eigen_social)
+colnames(user_centrality) <- c("userID", "centrality")
+user_artists <- dbReadTable(con, "User_ArtistsFINAL")
 
-# Define size of nodes
-node.size<-setNames(totalrevenue$Revenue,totalrevenue$CategoryName)
-names <-as.vector(totalrevenue$CategoryName)
+user_artists_centrality <- merge(user_artists, user_centrality, by.x="userID", by.y="userID")
+by_artist <- group_by(user_artists_centrality, artistIDNEW)
+X1 <- as.data.frame(summarise(by_artist, mean = mean(centrality)))
 
-# Plot and save graph
-png("web/categories_network.png")
-plot(g, vertex.label = names,
-     vertex.shape="circle",
-     vertex.color="orange",
-     vertex.label.dist=1.2,
-     vertex.size=node.size/10000,
-     edge.width=E(g)$weight/20,
-     vertex.label.cex=1.1,
-     vertex.label.family="Helvetica"
-)
-dev.off()
+########## Tag sentiment analysis
+library("stringr")
+library(e1071)
 
-#### IMPLEMENTATION OF APRIORI ALGORITHM ####
+tags <- dbReadTable(con, "Tags")
 
-library(arules)
+#Loading in tag sample with sentiments assigned
+tags.classified <- dbReadTable(con, "Tags_Classified")
+tags.classified[3] = as.factor(tags.classified[,3])
 
-#Run query of Interest
-result = dbSendQuery(db, "select distinct(a.OrderID), b.ProductName , b.ProductID from order_details a join products b on a.ProductID = b.ProductID order by a.OrderID")
-data = fetch(result, n=-1)
+afin_list <- dbReadTable(con, "Afin_Words")
+names(afin_list) <- c('word', 'score')
 
-#Prepare data for arule fuction
-b<-split(data$ProductName, data$OrderID)
-c<-as(b, "transactions")
+afin_list$word <- tolower(afin_list$word)
+#Split word list by sentiment
+afin_list_split = split(afin_list,afin_list[,"score"])
+afin_list_split = afin_list_split[-6]
 
-#Finding rules
-rules<-apriori(c, parameter=list(supp=0.002, conf=0.8))
-inspect(rules)
+#Function to count number of words in each tag matching the elements of a word list 
+sentimentScore <- function(sentences, terms){
+    final_scores <- matrix('', 0, 3)
+    sentences = as.matrix(sentences)
+    terms = unlist(terms)
+    scores <- apply(sentences,1, function(sentence, terms){
+        initial_sentence <- sentence
+        sentence <- sentence[2]
+        #remove unnecessary characters and split up by word 
+        sentence <- gsub("-"," ",sentence)
+        sentence <- gsub("[^A-Za-z ]","",sentence)
+        sentence <- gsub('[[:punct:]]', '', sentence)
+        sentence <- gsub('[[:cntrl:]]', '', sentence)
+        sentence <- gsub('\\d+', '', sentence)
+        sentence <- tolower(sentence)
+        wordList <- str_split(sentence, '\\s+')
+        words <- unlist(wordList)
+        #build vector with matches between sentence and each category
+        Matches <- match(words, terms)
+        #sum up number of words in each category
+        Matches <- sum(!is.na(Matches))
+        #add row to scores table
+        #newrow <- c(initial_sentence, Matches)
+        return(Matches)
+    }, terms)
+    return(data.frame(sentences,scores))
+}
 
-# Turning output into required form
-d<-as(rules, "data.frame")
-out<-as.data.frame(d[1:20,1])
-colnames(out)<-"Rules"
+#Training Naive Bayes classifier
+##Run sentimentScore function on tag sample
+scores.classification = tags.classified
+i=0
+for (elements in afin_list_split) {
+    i=i+1
+    sentiment = elements[1,2]
+    scores.classification = cbind(scores.classification, sentimentScore(tags.classified[,1:2],elements[,1])[,3])
+    names(scores.classification)[i+3] = sentiment
+}
 
-#Exporting SQL table
-dbSendQuery(db,"drop table if exists apriori")
-dbWriteTable(conn = db,name="apriori", value=out, row.names=FALSE)
+scores.all[,3:12] = scores.all[,3:12] > 0
+scores.all[,3:12] = lapply(scores.all[,3:12],function(x){factor(x,levels=c("TRUE","FALSE"))})
 
-#### IMPLEMENTATION OF LASSO REGRESSION ####
-
-#Extract data from data set
-result = dbSendQuery(db, "select * from ProductsVsCustomers_Pivot")
-dataPCsC = fetch(result, n=-1)
-result1 = dbSendQuery(db, "SELECT b.CustomerID Customer, sum(a.Quantity*a.UnitPrice) Amount, count(b.OrderID) N_Orders from order_details a left join orders b on a.OrderID=b.OrderID group by CustomerID order by Amount desc limit 20;")
-dataPVsC = fetch(result1, n=-1)
-
-#View(dataPVsC)
-dataPVsC[,1]
-y<-as.matrix(dataPCsC[,3])
-x <- dataPCsC[,c(dataPVsC[,1])] # Using best 20 customers
-row.names(x)<-dataPCsC[,2]
-x[is.na(x)] <- 0.00000000001
-z <- as.matrix(x)
-
-## Lasso Coef using Package
-library(lars)
-
-set.seed(1)
-lasso<-lars(log(z),log(y), type = "lasso",trace=TRUE, use.Gram = TRUE)
-cv.lasso<-cv.lars(z,y, type="lasso")
-limit<-min(cv.lasso$cv)+cv.lasso$cv.error[which.min(cv.lasso$cv)]
-s.cv<-cv.lasso$index[min(which(cv.lasso$cv<limit))]
-lasso.coef<-as.data.frame(round(coef(lasso, s = s.cv, mode="fraction")*100,digits = 4))
-colnames(lasso.coef)<-c("Percentage")
-vvv<-cbind(Customer=rownames(lasso.coef),lasso.coef)
-rownames(vvv)<-NULL
-TableFinal<-vvv[order(-vvv$Percentage),]
-
-#Exporting SQL table
-dbSendQuery(db,"drop table if exists top_customers")
-dbWriteTable(conn = db,name="top_customers", value=TableFinal, row.names=FALSE)
+scores.all = cbind(scores.all , predicted = predict(classifier, scores.all[,3:12]))
 
 
+
+
+
+
+
+
+## Mucking around#### DON't RUN THIS CODE#####
+#run queries
+dbGetQuery(con, "SELECT * FROM Users WHERE userID < 20")
+
+res <- dbSendQuery(con, "SELECT * FROM Users WHERE userID < 20")
+dbFetch(res)
+dbClearResult(res) #to free up memory 
+
+#Read in entire table: >dbReadTable(con, "Users")
+
+#Write a dataframe to db table: >dbWriteTable(con, "Users", dataframe[1:100, ])
+
+#Read in a table, calculate some metric and add this as a new column to original table. 
+#Note this code will not work since the "userID" col in x needs to come from the table. 
+#Perhaps use dbReadTable...?
+dbGetQuery(con, "SELECT * FROM Users")
+dbSendQuery(con, "ALTER TABLE Users ADD COLUMN NewCol FLOAT")
+x <- dataframe(userID=1:100, NewCol= 101:200)
+dbWriteTable(con, "NewColUsers", x)
+dbSendQuery(con, "UPDATE Users, NewColUsers 
+            SET Users.NewCol=NewColUsers.NewCol 
+            WHERE Users.userID=NewColUsers.userID")
+dbGetQuery(con, "SELECT * FROM Users")
+
+
+#dbFetch(dbSendQuery)
+#dbClearResult(dbSendQuery)
+
+#disconnect from db when done
+on.exit(dbDisconnect(con))
