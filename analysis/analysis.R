@@ -7,7 +7,7 @@ library(e1071)
 #connect to db
 con <- dbConnect(RMySQL::MySQL(), 
                  username = "root",
-                 password = "",
+                 password = "holler0210",
                  host = "127.0.0.1",
                  port = 3306,
                  dbname = "mydb")
@@ -106,8 +106,8 @@ confTable.train <- table(predict(classifier, scores.classification.train[,4:13])
 confTable.test <- table(predict(classifier, scores.classification.test[,4:13]), unlist(scores.classification.test[,3]),
                         dnn=list('predicted','actual'))
 #ideas to make it better: remove band names and genres, add words from the classified set
-confTable.train
-confTable.test
+table.train = confTable.train
+table.test = confTable.test
 
 #Run classification on all of the tags
 scores.all = tags
@@ -133,20 +133,24 @@ X2 <- as.data.frame(summarise(by_artist, positive_tags = sum(predicted %in% 1), 
 by_user <- group_by(user_tags, userID)
 usertag_count <- as.data.frame(summarise(by_user, tagCount=length(tagID) ))
 
-user_tags_usertag_count <- merge(user_tags, usertag_count, by.x="userID", by.y="userID")
-by_artist <- group_by(user_tags_usertag_count, artistIDNEW)
+user_artists_usertag_count <- merge(user_artists, usertag_count, by.x="userID", by.y="userID")
+by_artist <- group_by(user_artists_usertag_count, artistIDNEW)
 X3 <- as.data.frame(summarise(by_artist, avg_tag_count = mean(tagCount)))
 
+########## Time of first tag
+Dates <- paste(sprintf("%02d", user_tags$day), sprintf("%02d",user_tags$month), user_tags$year, sep="/")
+user_tags$Dates <- as.Date(Dates, "%d/%m/%Y")
+by_artist <- group_by(user_tags, artistIDNEW)
+artist_first_tag <- as.data.frame(summarise(by_artist, first_tag=min(Dates) ))
+artist_first_tag[artist_first_tag$first_tag < "2005-08-01","first_tag"] = "2005-08-01"
+artist_first_tag$year_month = factor(format(artist_first_tag$first_tag, format = "%Y %B"))
+X4 <- artist_first_tag
 
-
+RegressionVars = data.frame()
 RegressionVars <- merge(X2, X3, by.x="artistIDNEW", by.y="artistIDNEW")
 RegressionVars <- merge(X1, RegressionVars, by.x="artistIDNEW", by.y="artistIDNEW")
 RegressionVars <- merge(X0, RegressionVars, by.x="artistIDNEW", by.y="artistIDNEW")
-
-
-
-
-
+RegressionVars <- merge(X4, RegressionVars, by.x="artistIDNEW", by.y="artistIDNEW")
 
 
 
