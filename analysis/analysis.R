@@ -130,12 +130,8 @@ by_artist <- group_by(user_tags_sentiment, artistIDNEW)
 X2 <- as.data.frame(summarise(by_artist, positive_tags = sum(predicted %in% 1), positive_to_total_tags = positive_tags/sum(predicted %in% c(-1,0,1))))
 
 ########## Tag count of users
-by_user <- group_by(user_tags, userID)
-usertag_count <- as.data.frame(summarise(by_user, tagCount=length(tagID) ))
+X3 <- dbGetQuery(con, "SELECT * FROM users_of_artists_tag_activity")
 
-user_artists_usertag_count <- merge(user_artists, usertag_count, by.x="userID", by.y="userID")
-by_artist <- group_by(user_artists_usertag_count, artistIDNEW)
-X3 <- as.data.frame(summarise(by_artist, avg_tag_count = mean(tagCount)))
 
 ########## Time of first tag
 Dates <- paste(sprintf("%02d", user_tags$day), sprintf("%02d",user_tags$month), user_tags$year, sep="/")
