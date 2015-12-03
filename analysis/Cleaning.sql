@@ -169,7 +169,65 @@ CREATE TABLE User_TagsFINAL AS
     FROM User_Tags t5 
 		JOIN ArtistsFINAL t6 
         ON t5.artistID = t6.artistID
+	GROUP BY userID, artistIDNEW, tagID
 	);
 
 DROP TABLE ArtistsNEW;
 
+
+-- Create keys and constraints for ArtistsFINAL
+ALTER TABLE ArtistsFINAL
+ADD PRIMARY KEY (artistID, artistIDNEW);
+
+ALTER TABLE ArtistsFINAL
+DROP CONSTRAINT (artistID, artistIDNEW);
+
+ALTER TABLE ArtistsFINAL
+ADD CONSTRAINT `fk_ArtistsFINAL_Artists`
+    FOREIGN KEY (`artistID`)
+    REFERENCES `mydb`.`Artists` (`artistID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+-- Create keys and constraints for User_ArtistsFINAL
+ALTER TABLE User_ArtistsFINAL
+ADD PRIMARY KEY (userID, artistIDNEW);
+
+ALTER TABLE User_ArtistsFINAL
+ADD CONSTRAINT `fk_User_ArtistsFINAL_Users`
+    FOREIGN KEY (`userID`)
+    REFERENCES `mydb`.`Users` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+ALTER TABLE User_ArtistsFINAL
+ADD CONSTRAINT `fk_User_ArtistsFINAL_Artists1`
+    FOREIGN KEY (`artistIDNEW`)
+    REFERENCES `mydb`.`ArtistsFINAL` (`artistIDNEW`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION; -- WHY DOESN'T THIS WORK?
+      
+-- Create keys and constraints for User_TagsFINAL
+ALTER TABLE User_TagsFINAL
+ADD PRIMARY KEY (`userID`, `artistIDNEW`, `tagID`);
+
+ALTER TABLE User_TagsFINAL
+ADD CONSTRAINT `fk_User_TagsFINAL_Users1`
+    FOREIGN KEY (`userID`)
+    REFERENCES `mydb`.`Users` (`userID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+ALTER TABLE User_TagsFINAL
+ADD CONSTRAINT `fk_User_TagsFINAL_Artists1`
+    FOREIGN KEY (`artistIDNEW`)
+    REFERENCES `mydb`.`Artists` (`artistIDNEW`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION; -- DOESN'T WORK
+
+ALTER TABLE User_TagsFINAL
+ADD CONSTRAINT `fk_User_TagsFINAL_Tags1`
+    FOREIGN KEY (`tagID`)
+    REFERENCES `mydb`.`Tags` (`tagID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
