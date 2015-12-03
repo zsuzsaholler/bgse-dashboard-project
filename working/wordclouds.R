@@ -236,21 +236,44 @@ V(net)$label <- NA #get rid of node labels
 plot(net, vertex.color="orange", edge.color="grey50", edge.curved=0, main="MGMT: 86,195 listens")
 
 #plot wordcloud for David Archuleta (artistID=304)
-res <- dbSendQuery(con, "SELECT * FROM User_TagsFINAL WHERE artistIDNEW = 304")
+res <- dbSendQuery(con, "SELECT tagID FROM User_TagsFINAL WHERE artistIDNEW = 304")
 tags304 <- dbFetch(res)
 dbClearResult(res)
 
-tags304_sentiment <- subset(scores.all, tagID %in% tags304[,3], select = c(tagID, tagValue, predicted, tagCount))
 by_tag304 <- group_by(tags304, tagID)
-tags304 <- as.data.frame(summarise(by_tag304, tagCount = length(tagID)))
-tags304_sentiment <- merge(tags304, tags304_sentiment, by.x="tagID", by.y="tagID")
+tags304_count <- as.data.frame(summarise(by_tag304, tagCount = length(tagID)))
+
+tags304_sentiment <- subset(scores.all, tagID %in% tags304_count[,1], select = c(tagID, tagValue, predicted))
+
+tags304_sentiment <- merge(tags304_count, tags304_sentiment, by.x="tagID", by.y="tagID")
 tags304_sentiment$tagValue <- substr(tags304_sentiment$tagValue, 1, nchar(tags304_sentiment$tagValue)-1)
 
 tags304_sentiment$colour[tags304_sentiment$predicted==-1] <- "red"
 tags304_sentiment$colour[tags304_sentiment$predicted==0] <- "grey80"
 tags304_sentiment$colour[tags304_sentiment$predicted==1] <- "blue"
 
-wordcloud(tags304_sentiment$tagValue, tags304_sentiment$tagCount, colors=tags304_sentiment$colour, min.freq=1)
+wordcloud(tags304_sentiment$tagValue, tags304_sentiment$tagCount, ordered.colors=TRUE, colors=tags304_sentiment$colour, min.freq=1)
+
+
+#plot wordcloud for MGMT (artistID=1400)
+res <- dbSendQuery(con, "SELECT tagID FROM User_TagsFINAL WHERE artistIDNEW = 1400")
+tags1400 <- dbFetch(res)
+dbClearResult(res)
+
+by_tag1400 <- group_by(tags1400, tagID)
+tags1400_count <- as.data.frame(summarise(by_tag1400, tagCount = length(tagID)))
+
+tags1400_sentiment <- subset(scores.all, tagID %in% tags1400_count[,1], select = c(tagID, tagValue, predicted))
+
+tags1400_sentiment <- merge(tags1400_count, tags1400_sentiment, by.x="tagID", by.y="tagID")
+tags1400_sentiment$tagValue <- substr(tags1400_sentiment$tagValue, 1, nchar(tags1400_sentiment$tagValue)-1)
+
+tags1400_sentiment$colour[tags1400_sentiment$predicted==-1] <- "red"
+tags1400_sentiment$colour[tags1400_sentiment$predicted==0] <- "grey80"
+tags1400_sentiment$colour[tags1400_sentiment$predicted==1] <- "blue"
+
+wordcloud(tags1400_sentiment$tagValue, tags1400_sentiment$tagCount, ordered.colors=TRUE, colors=tags1400_sentiment$colour, min.freq=1)
+
 
 
 
