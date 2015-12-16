@@ -14,7 +14,7 @@ install)
 
 	mysql -u $user -p$pswd < db/Schema_creation.sql
 	mysql -u $user -p$pswd < data/dump.sql
-	mysql -u $user -p$pswd < analysis/Cleaning.sql
+	mysql -u $user -p$pswd < data/Cleaning.sql
 
 	mkdir -p "/var/www/html/MyApp"
 	cp -rf web/* "/var/www/html/MyApp"
@@ -33,10 +33,12 @@ uninstall)
 
 run)
 	echo "Running"
+	mysql -u $user -p$pswd < data/TagCount.sql
+	R CMD BATCH analysis/packages.R 
 	R CMD BATCH analysis/analysis.R 
 	cat analysis.Rout
 	rm analysis.Rout
-	cp web/categories_network.png "/var/www/html/MyApp"
+#	cp web/categories_network.png "/var/www/html/MyApp"
 
 	;;
 
