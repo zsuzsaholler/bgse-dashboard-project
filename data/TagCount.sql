@@ -6,7 +6,7 @@ CREATE VIEW tags_per_user AS
 FROM User_TagsFINAL 
 GROUP BY userID);
 
-DROP VIEW IF EXISTS users_of_artists_tag_activity;
+DROP VIEW IF EXISTS Users_of_artists_tag_activity;
 CREATE VIEW Users_of_artists_tag_activity AS
 	(SELECT t1.artistIDNEW, AVG(t2.userTagCount) AS avUserTagCount
 	FROM User_ArtistsFINAL t1 

@@ -133,7 +133,7 @@ by_artist <- group_by(user_tags_sentiment, artistIDNEW)
 X2 <- as.data.frame(summarise(by_artist, positive_tags = sum(predicted %in% 1), positive_to_total_tags = positive_tags/sum(predicted %in% c(-1,0,1))))
 
 ########## Tag count of users
-X3 <- dbGetQuery(con, "SELECT * FROM users_of_artists_tag_activity")
+X3 <- dbGetQuery(con, "SELECT * FROM Users_of_artists_tag_activity")
 
 
 ########## Time of first tag
