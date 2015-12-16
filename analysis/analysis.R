@@ -190,5 +190,3 @@ fit.subset.results = coeftest(fit.subset,fit.subset$newse)
 #Exporting SQL table
 dbSendQuery(con,"DROP TABLE IF EXISTS Regression_Vars")
 dbWriteTable(con, "Regression_Vars", RegressionVars, row.names=FALSE)
-
-

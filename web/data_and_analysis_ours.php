@@ -15,16 +15,37 @@
 	
 	<p>Data description goes here.</p>
 	
-	<p> Here are the bar charts.</p>
+	<p> The chart below shows the top 20, most popular artists, based on number their number of listens.</p>
 
 <?php
-    // Total Revenue by product
+    // Top 20 Artists
     
-   // $query = "SELECT ProductName, Revenue FROM ecommerce.ProductsVsCustomers_Pivot ORDER BY Revenue DESC limit 10";
-   // $title = "Products by revenues";
-   // query_and_print_graph($query,$title,"Euros");
+   $query = "SELECT t1.artistName, t2.listen_count 
+             FROM ArtistsFINAL t1 JOIN
+	                (SELECT artistIDNEW, listen_count 
+	                FROM Regression_Vars 
+	                ORDER BY listen_count 
+	                DESC LIMIT 20) as t2
+            ON t1.artistIDNEW = t2.artistIDNEW";
+   $title = "Top 20 Artists";
+   query_and_print_graph($query,$title,"Listen Count");
 ?>
 
+<p>The chart below shows the average centrality of the people listening to each of the artists shown in the above graph.</p>
+	
+<?php
+	// Mean centrality measure for top 20 artists. 
+	
+	$query = "SELECT t1.artistName, round(t2.mean_user_central,2)
+	          FROM ArtistsFINAL t1 JOIN
+	                (SELECT artistIDNEW, mean_user_central 
+	                FROM Regression_Vars 
+	                ORDER BY listen_count 
+	                DESC LIMIT 20) as t2
+              ON t1.artistIDNEW = t2.artistIDNEW";
+	$title = "Mean Centrality for Top 20 Artists";
+	query_and_print_graph($query,$title," ");
+?>
 	<p> Interactive part goes here. </p>
 	
 	<center><img src="categories_network.png" style="width: 40%"></center>
