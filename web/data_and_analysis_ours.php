@@ -20,15 +20,15 @@
 <?php
     // Top 20 Artists
     
-   $query = "SELECT t1.artistName, round(t2.listen_count)
-             FROM ArtistsFINAL t1 JOIN
+   $query = "SELECT t1.artistName, round(t2.listen_count/1000)
+             FROM mydb.ArtistsFINAL t1 JOIN
 	                (SELECT artistIDNEW, listen_count 
-	                FROM Regression_Vars 
+	                FROM mydb.Regression_Vars 
 	                ORDER BY listen_count 
 	                DESC LIMIT 20) as t2
             ON t1.artistIDNEW = t2.artistIDNEW";
    $title = "Top 20 Artists";
-   query_and_print_graph($query,$title,"Listen Count");
+   query_and_print_graph($query,$title,"Listen Count (1000's)");
 ?>
 
 <p>The chart below shows the average centrality of the people listening to each of the artists shown in the above graph.</p>
@@ -37,9 +37,9 @@
 	// Mean centrality measure for top 20 artists. 
 	
 	$query = "SELECT t1.artistName, round(t2.mean_user_central,2)
-	          FROM ArtistsFINAL t1 JOIN
+	          FROM mydb.ArtistsFINAL t1 JOIN
 	                (SELECT artistIDNEW, mean_user_central 
-	                FROM Regression_Vars 
+	                FROM mydb.Regression_Vars 
 	                ORDER BY listen_count 
 	                DESC LIMIT 20) as t2
               ON t1.artistIDNEW = t2.artistIDNEW";
