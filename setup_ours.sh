@@ -11,8 +11,6 @@ case $cmd in
 
 install)
 	echo "Installing"
-    echo $user
-	echo $pswd
 	mysql -u $user -p$pswd < db/Schema_creation.sql
 	mysql -u $user -p$pswd < data/dump.sql
 	mysql -u $user -p$pswd < data/Cleaning.sql
@@ -35,11 +33,12 @@ uninstall)
 run)
 	echo "Running"
 	mysql -u $user -p$pswd < data/TagCount.sql
-	R CMD BATCH analysis/packages.R 
-	R CMD BATCH analysis/analysis.R 
+	echo "Installing R packages"
+	sudo Rscript --vanilla analysis/packages.R 
+	echo "Running the analysis"
+	sudo Rscript analysis/analysis.R 
 	cat analysis.Rout
 	rm analysis.Rout
-#	cp web/categories_network.png "/var/www/html/MyApp"
 
 	;;
 
