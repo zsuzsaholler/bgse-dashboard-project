@@ -20,10 +20,10 @@
 <?php
     // Top 20 Artists
     
-   $query = "SELECT t1.artistName, t2.listen_count 
-             FROM mydb.ArtistsFINAL t1 JOIN
+   $query = "SELECT t1.artistName, round(t2.listen_count)
+             FROM ArtistsFINAL t1 JOIN
 	                (SELECT artistIDNEW, listen_count 
-	                FROM mydb.Regression_Vars 
+	                FROM Regression_Vars 
 	                ORDER BY listen_count 
 	                DESC LIMIT 20) as t2
             ON t1.artistIDNEW = t2.artistIDNEW";
@@ -37,9 +37,9 @@
 	// Mean centrality measure for top 20 artists. 
 	
 	$query = "SELECT t1.artistName, round(t2.mean_user_central,2)
-	          FROM mydb.ArtistsFINAL t1 JOIN
+	          FROM ArtistsFINAL t1 JOIN
 	                (SELECT artistIDNEW, mean_user_central 
-	                FROM mydb.Regression_Vars 
+	                FROM Regression_Vars 
 	                ORDER BY listen_count 
 	                DESC LIMIT 20) as t2
               ON t1.artistIDNEW = t2.artistIDNEW";
