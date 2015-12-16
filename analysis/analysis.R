@@ -3,6 +3,9 @@ library(igraph)
 library(dplyr)
 library("stringr")
 library(e1071)
+library("sandwich")
+library("lmtest")
+
 
 #connect to db
 con <- dbConnect(RMySQL::MySQL(), 
@@ -148,5 +151,44 @@ RegressionVars <- merge(X1, RegressionVars, by.x="artistIDNEW", by.y="artistIDNE
 RegressionVars <- merge(X0, RegressionVars, by.x="artistIDNEW", by.y="artistIDNEW")
 RegressionVars <- merge(X4, RegressionVars, by.x="artistIDNEW", by.y="artistIDNEW")
 
+
+##### REGRESSION
+RegressionVars$log_listen_count = log(RegressionVars$listen_count)
+RegressionVars$log_positive_to_total_tags = log(1 + RegressionVars$positive_to_total_tags)
+RegressionVars$log_mean_user_central = log(1 + RegressionVars$mean_user_central)
+RegressionVars$sq_mean_user_central = RegressionVars$mean_user_central**2
+RegressionVars$cub_mean_user_central = RegressionVars$mean_user_central**3
+RegressionVars$log_avg_tag_count = log(RegressionVars$avUserTagCount)
+
+#####Definition of input and output variables
+output = "log_listen_count"
+input = c("mean_user_central","log_avg_tag_count"
+          ,"log_positive_to_total_tags")
+input_transf= c("sq_mean_user_central","year_month")
+expr = paste( output , "~", paste(input,collapse= " + " ), "+" ,  paste(input_transf,collapse= " + " ))
+
+#####Some descriptives
+#png(file="/home/zsuzsa/Documents/project/bgse-dashboard-project/pairwise.png", width=800, height=800 )
+#dev.off()
+
+######Define subset
+subset = RegressionVars[RegressionVars$first_tag > "2010-01-01",]
+
+#Fit regression on total sample
+fit = lm(expr, data = RegressionVars)
+###Heteroskedasticity robust (White) se estimator
+fit$newse = vcovHC(fit,type="HC")
+fit.results = coeftest(fit,fit$newse)
+
+#Fit regression on subsample
+fit.subset = lm(expr, data = subset)
+fit.subset$newse = vcovHC(fit.subset,type="HC")
+fit.subset.results = coeftest(fit.subset,fit.subset$newse)
+
+
+
+#Exporting SQL table
+dbSendQuery(con,"DROP TABLE IF EXISTS Regression_Vars")
+dbWriteTable(con, "Regression_Vars", RegressionVars, row.names=FALSE)
 
 
