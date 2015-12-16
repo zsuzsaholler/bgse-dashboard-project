@@ -10,8 +10,8 @@ library("lmtest")
 #connect to db
 con <- dbConnect(RMySQL::MySQL(), 
                  username = "root",
-                 password = "holler0210",
-                 host = "127.0.0.1",
+                 password = "root",
+                 host = "localhost",
                  port = 3306,
                  dbname = "mydb")
 
