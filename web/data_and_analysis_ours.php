@@ -48,6 +48,21 @@
 ?>
 	<p> Interactive part goes here. </p>
 	
+	<select id="ddlArtist" name="ddlArtist">
+		<option value="-1">[Artist]</option>
+		<option value="0">Britney Spears</option>
+		<option value="1">Depeche Mode</option>
+		<option value="2">Lady Gaga</option>
+		<option value="3">Christina Aguilera</option>
+		<option value="4">Paramore</option>
+		<option value="5">Madonna</option>
+		<option value="6">Rihanna</option>
+		<option value="7">Shakira</option>
+		<option value="8">The Beatles</option>
+		<option value="9">Katy Perry</option>
+		<option value="10">Avril Lavigne</option>
+	</select>
+	
 	<center><img src="categories_network.png" style="width: 40%"></center>
 
 
