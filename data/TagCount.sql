@@ -1,3 +1,5 @@
+USE mydb;
+
 DROP VIEW IF EXISTS tags_per_user;
 CREATE VIEW tags_per_user AS
 (SELECT userID,count(tagID) AS userTagCount
