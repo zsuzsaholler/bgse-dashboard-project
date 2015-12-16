@@ -11,7 +11,8 @@ case $cmd in
 
 install)
 	echo "Installing"
-
+    echo $user
+	echo $pswd
 	mysql -u $user -p$pswd < db/Schema_creation.sql
 	mysql -u $user -p$pswd < data/dump.sql
 	mysql -u $user -p$pswd < data/Cleaning.sql
