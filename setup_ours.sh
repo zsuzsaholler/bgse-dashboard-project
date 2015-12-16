@@ -34,7 +34,7 @@ run)
 	echo "Running"
 	mysql -u $user -p$pswd < data/TagCount.sql
 	echo "Installing R packages"
-	sudo Rscript analysis/packages.R 
+	#sudo Rscript analysis/packages.R 
 	echo "Running the analysis"
 	sudo Rscript analysis/analysis.R 
 	cat analysis.Rout
