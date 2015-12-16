@@ -1,11 +1,13 @@
 library("sandwich")
+library("lmtest")
+library("car")
 ######Variable transformation
 RegressionVars$log_listen_count = log(RegressionVars$listen_count)
 RegressionVars$log_positive_to_total_tags = log(1 + RegressionVars$positive_to_total_tags)
 RegressionVars$log_mean_user_central = log(1 + RegressionVars$mean_user_central)
 RegressionVars$sq_mean_user_central = RegressionVars$mean_user_central**2
 RegressionVars$cub_mean_user_central = RegressionVars$mean_user_central**3
-RegressionVars$log_avg_tag_count = log(RegressionVars$avg_tag_count)
+RegressionVars$log_avg_tag_count = log(RegressionVars$avUserTagCount)
 
 #####Definition of input and output variables
 output = "log_listen_count"

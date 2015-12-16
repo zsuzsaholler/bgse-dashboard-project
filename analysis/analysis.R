@@ -150,33 +150,3 @@ RegressionVars <- merge(X4, RegressionVars, by.x="artistIDNEW", by.y="artistIDNE
 
 
 
-## Mucking around#### DON't RUN THIS CODE#####
-#run queries
-dbGetQuery(con, "SELECT * FROM Users WHERE userID < 20")
-
-res <- dbSendQuery(con, "SELECT * FROM Users WHERE userID < 20")
-dbFetch(res)
-dbClearResult(res) #to free up memory 
-
-#Read in entire table: >dbReadTable(con, "Users")
-
-#Write a dataframe to db table: >dbWriteTable(con, "Users", dataframe[1:100, ])
-
-#Read in a table, calculate some metric and add this as a new column to original table. 
-#Note this code will not work since the "userID" col in x needs to come from the table. 
-#Perhaps use dbReadTable...?
-dbGetQuery(con, "SELECT * FROM Users")
-dbSendQuery(con, "ALTER TABLE Users ADD COLUMN NewCol FLOAT")
-x <- dataframe(userID=1:100, NewCol= 101:200)
-dbWriteTable(con, "NewColUsers", x)
-dbSendQuery(con, "UPDATE Users, NewColUsers 
-            SET Users.NewCol=NewColUsers.NewCol 
-            WHERE Users.userID=NewColUsers.userID")
-dbGetQuery(con, "SELECT * FROM Users")
-
-
-#dbFetch(dbSendQuery)
-#dbClearResult(dbSendQuery)
-
-#disconnect from db when done
-on.exit(dbDisconnect(con))
