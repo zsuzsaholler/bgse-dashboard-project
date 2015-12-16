@@ -174,20 +174,17 @@ CREATE TABLE User_TagsFINAL AS
 
 DROP TABLE ArtistsNEW;
 
+ALTER TABLE ArtistsFINAL
+DROP COLUMN artistID;
+
+CREATE TABLE ArtistsFINAL_Unique AS SELECT DISTINCT * FROM ArtistsFINAL;
+DROP TABLE ArtistsFINAL;
+RENAME TABLE ArtistsFINAL_Unique TO ArtistsFINAL;
+
 
 -- Create keys and constraints for ArtistsFINAL
 ALTER TABLE ArtistsFINAL
-ADD PRIMARY KEY (artistID, artistIDNEW);
-
-ALTER TABLE ArtistsFINAL
-DROP CONSTRAINT (artistID, artistIDNEW);
-
-ALTER TABLE ArtistsFINAL
-ADD CONSTRAINT `fk_ArtistsFINAL_Artists`
-    FOREIGN KEY (`artistID`)
-    REFERENCES `mydb`.`Artists` (`artistID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
+ADD PRIMARY KEY (artistIDNEW);
 
 -- Create keys and constraints for User_ArtistsFINAL
 ALTER TABLE User_ArtistsFINAL
@@ -205,7 +202,7 @@ ADD CONSTRAINT `fk_User_ArtistsFINAL_Artists1`
     FOREIGN KEY (`artistIDNEW`)
     REFERENCES `mydb`.`ArtistsFINAL` (`artistIDNEW`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION; -- WHY DOESN'T THIS WORK?
+    ON UPDATE NO ACTION; 
       
 -- Create keys and constraints for User_TagsFINAL
 ALTER TABLE User_TagsFINAL
@@ -221,9 +218,9 @@ ADD CONSTRAINT `fk_User_TagsFINAL_Users1`
 ALTER TABLE User_TagsFINAL
 ADD CONSTRAINT `fk_User_TagsFINAL_Artists1`
     FOREIGN KEY (`artistIDNEW`)
-    REFERENCES `mydb`.`Artists` (`artistIDNEW`)
+    REFERENCES `mydb`.`ArtistsFINAL` (`artistIDNEW`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION; -- DOESN'T WORK
+    ON UPDATE NO ACTION;
 
 ALTER TABLE User_TagsFINAL
 ADD CONSTRAINT `fk_User_TagsFINAL_Tags1`
