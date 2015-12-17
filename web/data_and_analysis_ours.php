@@ -58,9 +58,9 @@ function showTab( ) {
 
 </script>
 
- <form>
+ <form action="showTab();" method="post">
     <p>
-	<select id="dropdown" onchange="showTab();">
+	<select id="dropdown" name="dropdown">
 		<option value="-1">[Artist]</option>
 		<option value="0">Britney Spears</option>
 		<option value="1">Depeche Mode</option>
