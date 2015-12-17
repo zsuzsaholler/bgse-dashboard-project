@@ -81,64 +81,64 @@
 </div>
 
 <div id="289" style="display:none; text-align: center" >
-<img src="289.png" style="width: 40%"> <img src="289_wc.svg" style="width: 40%">
+<img src="289.png" style="width: 44%"> <img src="289_wc.svg" style="width: 46%">
 </div>
-<div id="72" style="display:none" >
-<center><img src="72.png" style="width: 40%"></center>
+<div id="72" style="display:none; text-align: center" >
+<img src="72.png" style="width: 44%"> <img src="72_wc.svg" style="width: 46%">
 </div>
-<div id="89" style="display:none" >
-<center><img src="89.png" style="width: 40%"></center>
+<div id="89" style="display:none; text-align: center" >
+<img src="89.png" style="width: 44%"> <img src="89_wc.svg" style="width: 46%">
 </div>
-<div id="292" style="display:none" >
-<center><img src="292.png" style="width: 40%"></center>
+<div id="292" style="display:none; text-align: center" >
+<img src="292.png" style="width: 44%"> <img src="292_wc.svg" style="width: 46%">
 </div>
-<div id="498" style="display:none" >
-<center><img src="498.png" style="width: 40%"></center>
+<div id="498" style="display:none; text-align: center" >
+<img src="498.png" style="width: 44%"> <img src="498_wc.svg" style="width: 46%">
 </div>
-<div id="67" style="display:none" >
-<center><img src="67.png" style="width: 40%"></center>
+<div id="67" style="display:none; text-align: center" >
+<img src="67.png" style="width: 44%"> <img src="67_wc.svg" style="width: 46%">
 </div>
-<div id="288" style="display:none" >
-<center><img src="288.png" style="width: 40%"></center>
+<div id="288" style="display:none; text-align: center" >
+<img src="288.png" style="width: 44%"> <img src="288_wc.svg" style="width: 46%">
 </div>
-<div id="701" style="display:none" >
-<center><img src="701.png" style="width: 40%"></center>
+<div id="701" style="display:none; text-align: center" >
+<img src="701.png" style="width: 44%"> <img src="701_wc.svg" style="width: 46%">
 </div>
-<div id="227" style="display:none" >
-<center><img src="227.png" style="width: 40%"></center>
+<div id="227" style="display:none; text-align: center" >
+<img src="227.png" style="width: 44%"> <img src="227_wc.svg" style="width: 46%">
 </div>
-<div id="300" style="display:none" >
-<center><img src="300.png" style="width: 40%"></center>
+<div id="300" style="display:none; text-align: center" >
+<img src="300.png" style="width: 44%"> <img src="300_wc.svg" style="width: 46%">
 </div>
-<div id="333" style="display:none" >
-<center><img src="333.png" style="width: 40%"></center>
+<div id="333" style="display:none; text-align: center" >
+<img src="333.png" style="width: 44%"> <img src="333_wc.svg" style="width: 46%">
 </div>
-<div id="344" style="display:none" >
-<center><img src="344.png" style="width: 40%"></center>
+<div id="344" style="display:none; text-align: center" >
+<img src="344.png" style="width: 44%"> <img src="344_wc.svg" style="width: 46%">
 </div>
-<div id="378" style="display:none" >
-<center><img src="378.png" style="width: 40%"></center>
+<div id="378" style="display:none; text-align: center" >
+<img src="378.png" style="width: 44%"> <img src="378_wc.svg" style="width: 46%">
 </div>
-<div id="679" style="display:none" >
-<center><img src="679.png" style="width: 40%"></center>
+<div id="679" style="display:none; text-align: center" >
+<img src="679.png" style="width: 44%"> <img src="679_wc.svg" style="width: 46%">
 </div>
-<div id="295" style="display:none" >
-<center><img src="295.png" style="width: 40%"></center>
+<div id="295" style="display:none; text-align: center" >
+<img src="295.png" style="width: 44%"> <img src="295_wc.svg" style="width: 46%">
 </div>
-<div id="511" style="display:none" >
-<center><img src="511.png" style="width: 40%"></center>
+<div id="511" style="display:none; text-align: center" >
+<img src="511.png"style="width: 44%"> <img src="511_wc.svg" style="width: 46%">
 </div>
-<div id="461" style="display:none" >
-<center><img src="461.png" style="width: 40%"></center>
+<div id="461" style="display:none; text-align: center" >
+<img src="461.png" style="width: 44%"> <img src="461_wc.svg" style="width: 46%">
 </div>
-<div id="486" style="display:none" >
-<center><img src="486.png" style="width: 40%"></center>
+<div id="486" style="display:none; text-align: center" >
+<img src="486.png" style="width: 44%"> <img src="486_wc.svg" style="width: 46%">
 </div>
-<div id="190" style="display:none" >
-<center><img src="190.png" style="width: 40%"></center>
+<div id="190" style="display:none; text-align: center" >
+<img src="190.png" style="width: 44%"> <img src="190_wc.svg" style="width: 46%">
 </div>
-<div id="163" style="display:none" >
-<center><img src="163.png" style="width: 40%"></center>
+<div id="163" style="display:none; text-align: center" >
+<img src="163.png" style="width: 44%"> <img src="163_wc.svg" style="width: 46%">
 </div>
 
 	</div>
