@@ -49,12 +49,14 @@ function show_content(optionsId) {
 
 
 function showgraph(artist) {
-	if (artist == "0") { 
-		document.getElementById("0").style.display='block';
-    } 
-    else{
-		document.getElementById("0").style.display='none';
-    }
+	var ids = new Array("289","72","89","292","498","67","288","701","227","300","333","344","378","679","295","511","461","486","190","163");
+	document.getElementById(artist).style.display='block';
+
+	for (var i = 0; i < ids.length; i++)
+	{
+		if (ids[i] == artist) continue;
+		document.getElementById( ids[i] ).style.display='none';
+	}
 }
 
 </script>
