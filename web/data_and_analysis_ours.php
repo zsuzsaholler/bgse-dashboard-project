@@ -52,7 +52,7 @@
 <div>
  <form>
     <p>
-	<select id="dropdown" name="dropdown" onchange="java_script_:show(this.options[this.selectedIndex].value)">
+	<select id="dropdown" name="dropdown" onchange="java_script_:showgraph(this.options[this.selectedIndex].value)">
 		<option value="-1">[Artist]</option>
 		<option value="0">Britney Spears</option>
 		<option value="1">Depeche Mode</option>
@@ -71,12 +71,12 @@
 </div>
 
  
-<div id="proba" style="display:none" >
+<div id="0" style="display:none" >
 <center><img src="categories_network.png" style="width: 40%"></center>
 </div>
 
 <script type="text/javascript">
- function show(artist) {
+ function showgraph(artist) {
     if (artist == "0") {
     0.style.display='inline-block';
     } 
