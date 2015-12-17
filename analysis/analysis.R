@@ -5,6 +5,7 @@ library("stringr")
 library(e1071)
 library("sandwich")
 library("lmtest")
+library("wordcloud")
 
 
 #connect to db
