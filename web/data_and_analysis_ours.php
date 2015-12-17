@@ -46,6 +46,18 @@
 	$title = "Mean Centrality for Top 20 Artists";
 	query_and_print_graph($query,$title," ");
 ?>
+
+<?php
+$isPost = ($_SERVER['REQUEST_METHOD'] == 'POST');
+#Take linux timestamp and gets some info from that
+$t = explode(' ', microtime());
+$t = ltrim($t[0] + $t[1]);
+$rEngine = "/usr/bin/Rscript";
+$rScript = "/home/ubuntu/projects//bgse-dashboard-project/analysis/graphs.R";
+$rCharts = "/var/www/html/MyApp/charts/" . $t;
+$selected_artist_id = $_POST["ddlAreas"];
+?>
+
 	<p> Interactive part goes here. </p>
 	
 	<select id="ddlArtist" name="ddlArtist">
@@ -62,6 +74,22 @@
 		<option value="9">Katy Perry</option>
 		<option value="10">Avril Lavigne</option>
 	</select>
+            
+<?php
+            if ($isPost && $selected_area_id != -1 && $selected_category_id != -1)
+            {
+                $cmd = sprintf("%s %s %s %d", $rEngine, $rScript, $rCharts, #  >&1 2>&1
+                    $selected_artist_id);
+                $result = system($cmd);
+                $files = $rCharts . ".*";
+                foreach(glob($files) as $file)
+                {
+                    echo("<tr><td>&nbsp;</td></tr>");
+                    echo("<tr><td style='width:100%; text-align:center; align:center'><img style='min-width:800px' src='charts/"
+                    . basename($file) . "'/></td></tr>");
+                }
+            }
+?>
 	
 	<center><img src="categories_network.png" style="width: 40%"></center>
 
