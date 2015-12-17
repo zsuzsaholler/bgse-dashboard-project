@@ -50,7 +50,7 @@ function show_content(optionsId) {
 
 function showgraph(artist) {
 	if (artist == "0") { 
-		document.getElementById("0").style.display='inline-block';
+		document.getElementById("0").style.display='block';
     } 
     else{
 		document.getElementById("0").style.display='none';

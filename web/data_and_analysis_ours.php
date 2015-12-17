@@ -73,7 +73,7 @@
 
  
 <div id="0" style="display:none" >
-<center><img src="categories_network.png" style="width: 40%"></center>
+<center><img src="67.png" style="width: 40%"></center>
 </div>
 
 
