@@ -166,6 +166,7 @@ tags304_sentiment$colour[tags304_sentiment$predicted==1] <- "blue"
 args                 <- commandArgs(TRUE)
 charts.partial.path  <- args[1]
 artist.id           <- args[2]
+print(charts.partial.path)
 filename = paste0(charts.partial.path, ".", "wordcloud", ".png", sep="")
 png(file= filename, width=800, height=800 )
 wordcloud(tags304_sentiment$tagValue, tags304_sentiment$tagCount, ordered.colors=TRUE, colors=tags304_sentiment$colour, min.freq=1)
