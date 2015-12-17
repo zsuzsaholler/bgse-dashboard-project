@@ -213,10 +213,10 @@ for (artist in graphartists$artistIDNEW) {
   net <- graph.data.frame(edges, graphdata, directed=FALSE)
   V(net)$size <- sqrt(V(net)$centrality)*15 #set size of node corresponds to centrality
   V(net)$label <- NA #get rid of node labels
-  title = graphartists[graphartists$artistIDNEW == artist, "artistName"]
+  #title = graphartists[graphartists$artistIDNEW == artist, "artistName"]
   filename = paste("/var/www/html/MyApp/",artist,".png",sep="")
   png(file= filename , width=800, height=800 )
-  plot(net, vertex.color="orange", edge.color="grey50", edge.curved=0, main=title )
+  plot(net, vertex.color="orange", edge.color="grey50", edge.curved=0 )
   dev.off()
   
   #plot wordcloud
@@ -237,9 +237,9 @@ for (artist in graphartists$artistIDNEW) {
   tags.graph_sentiment$colour[tags.graph_sentiment$predicted==0] <- "grey80"
   tags.graph_sentiment$colour[tags.graph_sentiment$predicted==1] <- "blue"
   
-  filename = paste("/var/www/html/MyApp/",artist,"_wc.png",sep="")
-  png(file= filename , width=800, height=800 )
+  filename = paste("/var/www/html/MyApp/",artist,"_wc.pdf",sep="")
+  pdf(file= filename)
   wordcloud(tags.graph_sentiment$tagValue, tags.graph_sentiment$tagCount, 
-            ordered.colors=TRUE, colors=tags.graph_sentiment$colour, min.freq=1, main = title)
+            ordered.colors=TRUE, colors=tags.graph_sentiment$colour, min.freq=1, rot.per=.15)
   dev.off()
 }
