@@ -59,6 +59,8 @@ $selected_artist_id = $_POST["ddlArtist"];
 ?>
 
 	<p> Interactive part goes here. </p>
+
+<form name="frmMain" method="post" action="index.php">
 	
 	<select id="ddlArtist" name="ddlArtist">
 		<option value="-1">[Artist]</option>
@@ -90,6 +92,7 @@ $selected_artist_id = $_POST["ddlArtist"];
                 }
             }
 ?>
+</form>
 	
 	<center><img src="categories_network.png" style="width: 40%"></center>
 
