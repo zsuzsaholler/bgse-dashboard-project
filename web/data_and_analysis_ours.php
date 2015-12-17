@@ -78,10 +78,10 @@
 <script type="text/javascript">
  function show(artist) {
     if (artist == "0") {
-    proba.style.display="inline-block";
+    proba.style.display='inline-block';
     } 
     else{
-    proba.style.display="none";
+    proba.style.display='none';
     }
   }
 </script>
