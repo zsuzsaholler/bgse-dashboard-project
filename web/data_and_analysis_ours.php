@@ -55,7 +55,7 @@ $t = ltrim($t[0] + $t[1]);
 $rEngine = "/usr/bin/Rscript";
 $rScript = "/home/ubuntu/projects//bgse-dashboard-project/analysis/graphs.R";
 $rCharts = "/var/www/html/MyApp/charts/" . $t;
-$selected_artist_id = $_POST["ddlAreas"];
+$selected_artist_id = $_POST["ddlArtist"];
 ?>
 
 	<p> Interactive part goes here. </p>
