@@ -3,6 +3,7 @@ library(igraph)
 library(dplyr)
 library("stringr")
 library(e1071)
+library(wordcloud)
 
 #connect to db
 con <- dbConnect(RMySQL::MySQL(), 
