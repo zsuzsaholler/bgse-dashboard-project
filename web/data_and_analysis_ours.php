@@ -49,6 +49,18 @@
 
 	<p> Interactive part goes here. </p>
 
+<script type="text/javascript">
+ function showgraph(artist) {
+    if (artist == "0") {
+    0.style.display='inline-block';
+    } 
+    else{
+    0.style.display='none';
+    }
+  }
+</script>
+
+
 <div>
  <form>
     <p>
@@ -74,17 +86,6 @@
 <div id="0" style="display:none" >
 <center><img src="categories_network.png" style="width: 40%"></center>
 </div>
-
-<script type="text/javascript">
- function showgraph(artist) {
-    if (artist == "0") {
-    0.style.display='inline-block';
-    } 
-    else{
-    0.style.display='none';
-    }
-  }
-</script>
 
 
 	</div>
