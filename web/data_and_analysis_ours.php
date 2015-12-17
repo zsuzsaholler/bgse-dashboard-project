@@ -76,7 +76,7 @@ $selected_artist_id = $_POST["ddlArtist"];
 	</select>
             
 <?php
-            if ($isPost && $selected_area_id != -1 && $selected_category_id != -1)
+            if ($isPost && $selected_artist_id != -1)
             {
                 $cmd = sprintf("%s %s %s %d", $rEngine, $rScript, $rCharts, #  >&1 2>&1
                     $selected_artist_id);
