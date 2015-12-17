@@ -237,8 +237,8 @@ for (artist in graphartists$artistIDNEW) {
   tags.graph_sentiment$colour[tags.graph_sentiment$predicted==0] <- "grey80"
   tags.graph_sentiment$colour[tags.graph_sentiment$predicted==1] <- "blue"
   
-  filename = paste("/var/www/html/MyApp/",artist,"_wc.pdf",sep="")
-  pdf(file= filename)
+  filename = paste("/var/www/html/MyApp/",artist,"_wc.svg",sep="")
+  svg(file= filename)
   wordcloud(tags.graph_sentiment$tagValue, tags.graph_sentiment$tagCount, 
             ordered.colors=TRUE, colors=tags.graph_sentiment$colour, min.freq=1, rot.per=.15)
   dev.off()
