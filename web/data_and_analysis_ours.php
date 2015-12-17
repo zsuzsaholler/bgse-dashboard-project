@@ -71,17 +71,17 @@
 </div>
 
  
-<div id="0" style="display:none" >
+<div id="proba" style="display:none" >
 <center><img src="categories_network.png" style="width: 40%"></center>
 </div>
 
 <script type="text/javascript">
  function show(artist) {
     if (artist == "0") {
-    0.style.display='inline-block';
+    proba.style.display="inline-block";
     } 
     else{
-    0.style.display='none';
+    proba.style.display="none";
     }
   }
 </script>
