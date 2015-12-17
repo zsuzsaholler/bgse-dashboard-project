@@ -47,22 +47,21 @@
 	query_and_print_graph($query,$title," ");
 ?>
 
-<?php
-$isPost = ($_SERVER['REQUEST_METHOD'] == 'POST');
-#Take linux timestamp and gets some info from that
-$t = explode(' ', microtime());
-$t = ltrim($t[0] + $t[1]);
-$rEngine = "/usr/bin/Rscript";
-$rScript = "/home/ubuntu/projects/bgse-dashboard-project/analysis/graphs.R";
-$rCharts = "/var/www/html/MyApp/charts/" . $t;
-$selected_artist_id = $_POST["ddlArtist"];
-?>
-
 	<p> Interactive part goes here. </p>
 
-<form name="frmMain" method="post" action="index.php">
-	
-	<select id="ddlArtist" name="ddlArtist">
+<script>
+ 
+function showTab( ) {
+  var select = $( '#dropdown' );
+  $( 'div' ).not( select.val()).hide();
+  $( name ).show();
+}
+ 
+</script>
+
+ <form>
+    <p>
+	<select id="dropdown" onchange="showTab();">
 		<option value="-1">[Artist]</option>
 		<option value="0">Britney Spears</option>
 		<option value="1">Depeche Mode</option>
@@ -76,25 +75,14 @@ $selected_artist_id = $_POST["ddlArtist"];
 		<option value="9">Katy Perry</option>
 		<option value="10">Avril Lavigne</option>
 	</select>
-            
-<?php
-            if ($isPost && $selected_artist_id != -1)
-            {
-                $cmd = sprintf("%s %s %s %d", $rEngine, $rScript, $rCharts, #  >&1 2>&1
-                    $selected_artist_id);
-                $result = system($cmd);
-                $files = $rCharts . ".*";
-                foreach(glob($files) as $file)
-                {
-                    echo("<tr><td>&nbsp;</td></tr>");
-                    echo("<tr><td style='width:100%; text-align:center; align:center'><img style='min-width:800px' src='charts/"
-                    . basename($file) . "'/></td></tr>");
-                }
-            }
-?>
-</form>
-	
+    </p>
+ 
+    <div id="0" >
 	<center><img src="categories_network.png" style="width: 40%"></center>
+    </div>
+
+</form>
+
 
 
 	</div>
