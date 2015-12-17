@@ -49,14 +49,14 @@
 
 	<p> Interactive part goes here. </p>
 
-<script>
+<?php
  
 function showTab( ) {
   var select = $_POST["dropdown"];
   show(select);
 }
 
-</script>
+?>
 
  <form onclick="showTab();" method="post">
     <p>
