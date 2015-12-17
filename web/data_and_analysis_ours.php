@@ -52,11 +52,10 @@
 <script>
  
 function showTab( ) {
-  var select = $( '#dropdown' );
-  $( 'div' ).not( select.val()).hide();
-  $( name ).show();
+  var select = $_POST["dropdown"];
+  show(select);
 }
- 
+
 </script>
 
  <form>
