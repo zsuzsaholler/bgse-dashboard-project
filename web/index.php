@@ -46,6 +46,14 @@ function show_content(optionsId) {
 	    document.getElementById(ids[i] + '_link').className = '';
 	}
 }
+
+ 
+function showTab( ) {
+  var select = $_POST["dropdown"];
+  show(select);
+}
+
+
 </script>
 <body>
 	<div id="header"><h1>GROUP 2 HACKED THIS WEBSITE YEAHHHHH</h1></div>
