@@ -37,8 +37,6 @@ run)
 	#sudo Rscript analysis/packages.R 
 	echo "Running the analysis"
 	sudo Rscript analysis/analysis.R 
-	cat analysis.Rout
-	rm analysis.Rout
 
 	;;
 

@@ -201,6 +201,7 @@ graphartists <- dbGetQuery(con, "SELECT t1.artistIDNEW, t1.artistName
                            ON t1.artistIDNEW = t2.artistIDNEW")
 
 for (artist in graphartists$artistIDNEW) {
+  #plot graph
   graphdata <- user_artists_centrality[user_artists_centrality$artistIDNEW==artist,]
   rownames(graphdata) <- NULL
   
@@ -211,10 +212,33 @@ for (artist in graphartists$artistIDNEW) {
   net <- graph.data.frame(edges, graphdata, directed=FALSE)
   V(net)$size <- sqrt(V(net)$centrality)*15 #set size of node corresponds to centrality
   V(net)$label <- NA #get rid of node labels
-  #graph_layout <- layout.fruchterman.reingold(net)
   title = graphartists[graphartists$artistIDNEW == artist, "artistName"]
   filename = paste("/var/www/html/MyApp/",artist,".png",sep="")
   png(file= filename , width=800, height=800 )
   plot(net, vertex.color="orange", edge.color="grey50", edge.curved=0, main=title )
+  dev.off()
+  
+  #plot wordcloud
+  tag.query = paste("SELECT tagID FROM User_TagsFINAL WHERE artistIDNEW = ",artist,sep="")
+  res <- dbSendQuery(con, tag.query)
+  tags.graph <- dbFetch(res)
+  dbClearResult(res)
+  
+  by_tags.graph <- group_by(tags.graph, tagID)
+  tags.graph_count <- as.data.frame(summarise(by_tags.graph, tagCount = length(tagID)))
+  
+  tags.graph_sentiment <- subset(scores.all, tagID %in% tags.graph_count[,1], select = c(tagID, tagValue, predicted))
+  
+  tags.graph_sentiment <- merge(tags.graph_count, tags.graph_sentiment, by.x="tagID", by.y="tagID")
+  tags.graph_sentiment$tagValue <- substr(tags.graph_sentiment$tagValue, 1, nchar(tags.graph_sentiment$tagValue)-1)
+  
+  tags.graph_sentiment$colour[tags.graph_sentiment$predicted==-1] <- "red"
+  tags.graph_sentiment$colour[tags.graph_sentiment$predicted==0] <- "grey80"
+  tags.graph_sentiment$colour[tags.graph_sentiment$predicted==1] <- "blue"
+  
+  filename = paste("/var/www/html/MyApp/",artist,"_wc.png",sep="")
+  png(file= filename , width=800, height=800 )
+  wordcloud(tags.graph_sentiment$tagValue, tags.graph_sentiment$tagCount, 
+            ordered.colors=TRUE, colors=tags.graph_sentiment$colour, min.freq=1, main = title)
   dev.off()
 }

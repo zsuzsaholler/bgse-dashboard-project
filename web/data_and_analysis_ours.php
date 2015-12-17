@@ -80,8 +80,8 @@
  </form>
 </div>
 
-<div id="289" style="display:none" >
-<center><img src="289.png" style="width: 40%"></center>
+<div id="289" style="display:none; text-align: center" >
+<img src="289.png" style="width: 40%"> <img src="289_wc.png" style="width: 40%">
 </div>
 <div id="72" style="display:none" >
 <center><img src="72.png" style="width: 40%"></center>
