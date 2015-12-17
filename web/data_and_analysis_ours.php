@@ -49,17 +49,6 @@
 
 	<p> Interactive part goes here. </p>
 
-<script type="text/javascript">
- function showgraph(artist) {
-    if (artist == "0") {
-    0.style.display='inline-block';
-    } 
-    else{
-    0.style.display='none';
-    }
-  }
-</script>
-
 
 <div>
  <form>

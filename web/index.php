@@ -48,6 +48,15 @@ function show_content(optionsId) {
 }
 
 
+ function showgraph(artist) {
+    if (artist == "0") {
+    0.style.display='inline-block';
+    } 
+    else{
+    0.style.display='none';
+    }
+  }
+
 </script>
 <body>
 	<div id="header"><h1>GROUP 2 HACKED THIS WEBSITE YEAHHHHH</h1></div>
