@@ -72,6 +72,13 @@
 	<center><img src="categories_network.png" style="width: 40%"></center>
     </div>
 
+<?php
+function showTab( ) {
+  var select = $_POST["dropdown"];
+  show(select);
+}
+?>
+
 </form>
 
 

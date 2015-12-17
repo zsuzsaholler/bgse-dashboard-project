@@ -47,12 +47,6 @@ function show_content(optionsId) {
 	}
 }
 
- 
-function showTab( ) {
-  var select = $_POST["dropdown"];
-  show(select);
-}
-
 
 </script>
 <body>
