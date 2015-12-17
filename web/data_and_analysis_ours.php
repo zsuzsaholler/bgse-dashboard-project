@@ -49,10 +49,10 @@
 
 	<p> Interactive part goes here. </p>
 
-
- <form onclick="showTab();" method="post">
+<div>
+ <form>
     <p>
-	<select id="dropdown" name="dropdown">
+	<select id="dropdown" name="dropdown" onchange="java_script_:show(this.options[this.selectedIndex].value)">
 		<option value="-1">[Artist]</option>
 		<option value="0">Britney Spears</option>
 		<option value="1">Depeche Mode</option>
@@ -67,20 +67,24 @@
 		<option value="10">Avril Lavigne</option>
 	</select>
     </p>
+ </form>
+</div>
+
  
-    <div id="0" >
-	<center><img src="categories_network.png" style="width: 40%"></center>
-    </div>
+<div id="0" >
+<center><img src="categories_network.png" style="width: 40%"></center>
+</div>
 
-<script>
-function showTab( ) {
-  var select = $_POST["dropdown"];
-  show(select);
-}
+<script type="text/javascript">
+ function show(artist) {
+    if (artist == "0") {
+    0.style.display='inline-block';
+    } 
+    else{
+    0.style.display='none';
+    }
+  }
 </script>
-
-</form>
-
 
 
 	</div>
