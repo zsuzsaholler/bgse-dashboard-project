@@ -75,18 +75,12 @@ function showgraph(artist) {
 			<h2>Home</h2>
 			<h3>The challenge</h3>
 			
-			<p>Text about challenge goes here.</p>
-			
-			<ul style="list-style-type:circle">
-  				<li>  </li>
-			</ul>
-			
+			<p></p>
+
 			<h3>The solution</h3>
-						
-			<p>Test about the solution goes here.</p>
-				<ul style="list-style-type:circle">
-					<li>  <b><a href="http://www.wikipedia.org/wiki/Apriori_algorithm" target="_blank">Apriori algorithm.</a></b></li>
-				</ul>
+				
+			<p>Initially, we had to clean the data (get rid of duplicate names, clean the tags etc) so we could easily access and manage them. Next, we tried to identify the independent and dependent variables as well as to find ways to compute their coefficients from clever data manipulation. SQL played an important role with </p>
+
 						
 		</div>	
 

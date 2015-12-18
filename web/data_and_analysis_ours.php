@@ -13,7 +13,7 @@
 	
 	<h2>Data</h2>
 	
-	<p>Data description goes here.</p>
+	<p>The challenge of our project is to predict the future success of artists based on the distinct characteristics of their fans. We use the <b><a href="http://grouplens.org/datasets/hetrec-2011/" target="_blank">LAST.FM dataset</a></b> which contains approximately 18,000 distinct artists, 1,900 Users, 12,000 Tags(made by users), 13,000 Connections among Users and 93,000 Connections between Users and Artists. Particularly, given the dataset of the <b><a href="http://www.last.fm/" target="_blank">LAST.FM</a></b> we are trying to analyze various aspects of the social behavior of users and based on that to infer whether there is a relation between success and fan quality. Success of an artist is measured by the listen counts. Moreover, a certain challenge is imposed because our dataset has absence of time dimension and also contains duplicate artists names, tags with special characters or ambiguous meaning.</p>
 	
 	<p> The chart below shows the top 20, most popular artists, based on number their number of listens.</p>
 
@@ -47,7 +47,7 @@
 	query_and_print_graph($query,$title," ");
 ?>
 
-	<p> Interactive part goes here. </p>
+	<p> Please select an artist to see how the network of his or her users looks like! Check out the tags related to that artist as well! </p>
 
 
 <div>
@@ -145,8 +145,22 @@
 	<div id="analysis" style="display: none">
 	<h2>Analysis</h2>
 	
-	<p>Description of analysis part goes here</p>
-			
+	<p>The variable analysis consists of three main parts:
+				<ul style="list-style-type:circle">
+					<li>Tag Sentiment Analysis. 
+The notion behind this measure is to examine whether users opinions and feelings could be indicative of an artist's popularity.
+Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutral,negative respectively. Next, we counted the positive/neutral/negative words in given tag using an exhaustive list of words classified from -5 to 5 as very negative to very positive respectively. Finally, we trained the Naive Bayesian Classifier using a random subset of classified tags in order to predict the sentiment of the tags.  </li>
+					<li>Centrality.
+The idea behind this measure is to take advantage of the actual connections between users in the database. Intuitively, the more central a user is the more infuential he becomes. Therefore the success of a particular artist is directly linked with the centrality of his fans. 
+The measure for centrality which we chose is the eigenvector centrality. In this measure a certain user is not considered influential only if he has many friends in the dataset but also when his friends have many connections as well.</li>
+					<li>Tag Count.
+This is another aspect of the users' social behavior and measures user activity. The intuition is that the opinion of active users will affect more people. We simply aggregated the number of counts for each user and then computed the average number of tags for each artist.</li>
+				</ul>
+</p>
+		
+    <h2>Regression Analysis:</h2>
+<p>We run an artist level regression in order to explore the relationship between the characteristics of the audience of an artist and his/her success. Our regression is a simple linear regression with non-linear transformations to account for curvature and skewedness. Then we control for the first appearence of an artist in the LAST.FM database to check if our results change or are significantly different.
+In our findings we see that centrality plays a significant role for the success of an artist in both the regression on the total sample as well as when we control for the first appearence of an artist.</p>	
 <?php
 
 //	$query = "SELECT * FROM ecommerce.apriori";
