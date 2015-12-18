@@ -61,7 +61,7 @@ function showgraph(artist) {
 
 </script>
 <body>
-	<div id="header"><h1>GROUP 2 HACKED THIS WEBSITE YEAHHHHH</h1></div>
+	<div id="header"><h1>THE LAST.FM NETWORK AND ARTIST POPULARITY</h1></div>
 
 	<div id="menu">
 		<a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> &middot;
@@ -75,7 +75,7 @@ function showgraph(artist) {
 			<h2>Home</h2>
 			<h3>The challenge</h3>
 			
-			<p></p>
+			<p>The challenge of our project is to predict the future success of artists based on the distinct characteristics of their fans. Particularly, given the dataset of the <b><a href="http://www.last.fm/" target="_blank">LAST.FM</a></b> we are trying to analyze various aspects of the social behavior of users and based on that to infer whether there is a relation between success and fan quality.</p>
 
 			<h3>The solution</h3>
 				

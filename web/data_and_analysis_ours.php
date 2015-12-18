@@ -13,9 +13,9 @@
 	
 	<h2>Data</h2>
 	
-	<p>The challenge of our project is to predict the future success of artists based on the distinct characteristics of their fans. We use the <b><a href="http://grouplens.org/datasets/hetrec-2011/" target="_blank">LAST.FM dataset</a></b> which contains approximately 18,000 distinct artists, 1,900 Users, 12,000 Tags(made by users), 13,000 Connections among Users and 93,000 Connections between Users and Artists. Particularly, given the dataset of the <b><a href="http://www.last.fm/" target="_blank">LAST.FM</a></b> we are trying to analyze various aspects of the social behavior of users and based on that to infer whether there is a relation between success and fan quality. Success of an artist is measured by the listen counts. Moreover, a certain challenge is imposed because our dataset has absence of time dimension and also contains duplicate artists names, tags with special characters or ambiguous meaning.</p>
+	<p>We use the <b><a href="http://grouplens.org/datasets/hetrec-2011/" target="_blank">LAST.FM dataset</a></b> which contains approximately 18,000 distinct artists, 1,900 Users, 12,000 Tags(made by users), 13,000 Connections among Users and 93,000 Connections between Users and Artists. The dataset lacks time dimension which makes the analysis challenging.</p>
 	
-	<p> The chart below shows the top 20, most popular artists, based on number their number of listens.</p>
+	<p>Success of an artist is measured by the listen counts. The chart below shows the top 20, most popular artists, based on number their number of listens.</p>
 
 <?php
     // Top 20 Artists
@@ -31,7 +31,8 @@
    query_and_print_graph($query,$title,"Listen Count (1000's)");
 ?>
 
-<p>The chart below shows the average centrality of the people listening to each of the artists shown in the above graph.</p>
+<h2>Centrality</h2>
+<p>The idea behind this measure is to take advantage of the actual connections between users in the database. Intuitively, the more central a user is the more infuential he becomes. Therefore the success of a particular artist is directly linked with the centrality of his fans. The measure for centrality which we chose is the eigenvector centrality. In this measure a certain user is not considered influential only if he has many friends in the dataset but also when his friends have many connections as well. The chart below shows the average centrality of the people listening to each of the artists shown in the above graph.</p>
 	
 <?php
 	// Mean centrality measure for top 20 artists. 
@@ -47,8 +48,18 @@
 	query_and_print_graph($query,$title," ");
 ?>
 
-	<p> Please select an artist to see how the network of his or her users looks like! Check out the tags related to that artist as well! </p>
+<h2>Tag Count</h2>
+<p>This is another aspect of the users' social behavior and measures user activity. The intuition is that the opinion of active users will affect more people. We simply aggregated the number of counts for each user and then computed the average number of tags for each artist.</p>
 
+
+	
+
+</div>
+	
+<div id="analysis" style="display: none">
+	<h2>Analysis</h2>
+
+<p> Please select an artist to see how the network of his or her users looks like! Check out the tags related to that artist as well! </p>
 
 <div>
  <form>
@@ -141,21 +152,11 @@
 <img src="163.png" style="width: 44%"> <img src="163_wc.svg" style="width: 46%">
 </div>
 
-	</div>
-	<div id="analysis" style="display: none">
-	<h2>Analysis</h2>
+
 	
-	<p>The variable analysis consists of three main parts:
-				<ul style="list-style-type:circle">
-					<li>Tag Sentiment Analysis. 
-The notion behind this measure is to examine whether users opinions and feelings could be indicative of an artist's popularity.
-Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutral,negative respectively. Next, we counted the positive/neutral/negative words in given tag using an exhaustive list of words classified from -5 to 5 as very negative to very positive respectively. Finally, we trained the Naive Bayesian Classifier using a random subset of classified tags in order to predict the sentiment of the tags.  </li>
-					<li>Centrality.
-The idea behind this measure is to take advantage of the actual connections between users in the database. Intuitively, the more central a user is the more infuential he becomes. Therefore the success of a particular artist is directly linked with the centrality of his fans. 
-The measure for centrality which we chose is the eigenvector centrality. In this measure a certain user is not considered influential only if he has many friends in the dataset but also when his friends have many connections as well.</li>
-					<li>Tag Count.
-This is another aspect of the users' social behavior and measures user activity. The intuition is that the opinion of active users will affect more people. We simply aggregated the number of counts for each user and then computed the average number of tags for each artist.</li>
-				</ul>
+	<h2>Tag Sentiment Analysis.</h2>
+<p>The notion behind this measure is to examine whether users opinions and feelings could be indicative of an artist's popularity.
+Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutral,negative respectively. Next, we counted the positive/neutral/negative words in given tag using an exhaustive list of words classified from -5 to 5 as very negative to very positive respectively. Finally, we trained the Naive Bayesian Classifier using a random subset of classified tags in order to predict the sentiment of the tags.
 </p>
 		
     <h2>Regression Analysis:</h2>
