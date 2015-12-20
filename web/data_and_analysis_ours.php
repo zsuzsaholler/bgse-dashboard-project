@@ -172,14 +172,15 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 </p>
 
 <?php
-	// Predicted and Actual pivot tables for tag sentiment on training and test set
+	// Predicted and Actual pivot tables for tag sentiment on training set
 	
-	$query1 = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Training";
-	$title1 = "Actual vs Predicted Tag Sentiment - Training Set";
+	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Training";
+	$title = "Actual vs Predicted Tag Sentiment - Training Set";
+	query_and_print_table($query,$title," ");
 	
-	$query2 = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Test";
-	$title2 = "Actual vs Predicted Tag Sentiment - Test Set";
-	query_and_print_adjacent_tables($query1,$title1,$query2,$title2," ");
+	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Test";
+	$title = "Actual vs Predicted Tag Sentiment - Test Set";
+	query_and_print_table($query,$title," ");
 ?>
 
 		
