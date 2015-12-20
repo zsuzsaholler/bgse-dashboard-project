@@ -176,15 +176,11 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 	
 	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Training";
 	$title = "Actual vs Predicted Tag Sentiment - Training Set";
-	echo <table class="inlineTable">;
 	query_and_print_table($query,$title," ");
-	echo </table>;
 	
 	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Test";
 	$title = "Actual vs Predicted Tag Sentiment - Test Set";
-	echo <table class="inlineTable">;
 	query_and_print_table($query,$title," ");
-	echo </table>;
 ?>
 
 		
