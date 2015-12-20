@@ -50,7 +50,19 @@
 
 <h2>Tag Count</h2>
 <p>This is another aspect of the users' social behavior and measures user activity. The intuition is that the opinion of active users will affect more people. We simply aggregated the number of counts for each user and then computed the average number of tags for each artist.</p>
-
+<?php
+	// Average tag count measure for top 20 artists. 
+	
+	$query = "SELECT t1.artistName, round(avUserTagCount,1)
+             FROM mydb.ArtistsFINAL t1 JOIN
+	                (SELECT artistIDNEW, avUserTagCount
+	                FROM mydb.Regression_Vars 
+	                ORDER BY listen_count 
+	                DESC LIMIT 20) as t2
+            ON t1.artistIDNEW = t2.artistIDNEW";
+	$title = "Average Tag Count of the Listeners for Top 20 Artists";
+	query_and_print_graph($query,$title," ");
+?>
 
 	
 
