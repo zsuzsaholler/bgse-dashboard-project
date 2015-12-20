@@ -236,7 +236,7 @@ for (artist in graphartists$artistIDNEW) {
   #title = graphartists[graphartists$artistIDNEW == artist, "artistName"]
   filename = paste("/var/www/html/MyApp/",artist,".png",sep="")
   png(file= filename , width=800, height=800 )
-  plot(net, vertex.color="orange", edge.color="grey50", edge.curved=0 )
+  plot(net, vertex.color="red", edge.color="grey50", edge.curved=0 )
   dev.off()
   
   #plot wordcloud
