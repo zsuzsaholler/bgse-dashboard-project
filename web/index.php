@@ -72,12 +72,12 @@ function showgraph(artist) {
 	<div id="main">
 
 		<div id="home">
-			<h2>Home</h2>
-			<h3>The challenge</h3>
+			<h1>Home</h1>
+			<h2>The challenge</h2>
 			
 			<p><b><a href="http://www.last.fm/" target="_blank">LAST.FM</a></b> is a music website providing a recommendation system based on the listening history and the social connections of users. Our dataset contains information on a subset of users in 2011; what artists they listen to, how they are connected to each other and tag information. The common setting in databases which include artists, users and frequency of listens is that they are user-centered. Music streaming softwares like Spotify or Last.fm are attempting to make suggestion for the users as well as to identify their music needs. In our project we would like to extend this notion to a different direction: Provide an artist-centered tool. For an artist the most essential element, besides his music, which defines and makes him successful is his audience and their distinct characteristics. The challenge of our project is to predict the future success of artists based on the distinct characteristics of their fans. Particularly, given the dataset of the  we are trying to analyze various aspects of the social behavior of users and based on that to infer whether there is a relation between success and fan quality. Our main goal is to create a predictor for success for the artist taking into account the social behavior(activity,popularity) of his fans.</p>
 
-			<h3>The solution</h3>
+			<h2>The solution</h2>
 				
 			<p>Initially, we had to clean the data (get rid of duplicate names, clean the tags etc) so we could easily access and manage them. Next, we tried to identify the independent and dependent variables as well as to find ways to compute their coefficients from clever data manipulation. SQL played an important role with. In order to predict success of an artist we defined three main independent variables based on the social characteristics of the artist's audience.Next, we regress them on the number of listen counts, our dependent variable y, to examine whether and in what extend we can predict and define the success of a certain artist. Moreover, the three variables needed some manipulation and analysis so that we could have reasonable data or measures and finally run the regression. Particularly, we had to clean the data (get rid of duplicate names, clean the tags etc) so we could easily access and manage them. Next, we tried to identify the independent variables by calculating their coefficients from clever data manipulation which will be described in detail in the Analysis part. Finally, SQL queries played an important role enabling us to combine aggregate and have insights on the LAST.FM data.</p>
 

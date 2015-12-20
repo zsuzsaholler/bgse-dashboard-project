@@ -77,7 +77,7 @@ function query_and_print_graph($query,$title,$ylabel) {
     $id = "graph" . $GLOBALS['graphid'];
     $GLOBALS['graphid'] = $GLOBALS['graphid'] + 1;
     
-    echo "<h2>" . $title . "</h2>";
+    echo "<h3>" . $title . "</h3>";
     echo PHP_EOL,'<div id="'. $id . '"><svg style="height:300px"></svg></div>',PHP_EOL;
 
     // Perform Query
