@@ -174,12 +174,12 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 <?php
 	// Predicted and Actual pivot tables for tag sentiment on training set
 	
-	$query = "SELECT * FROM mydb.Tag_Sentiment_Training";
-	$title = "Predicted vs Actual Tag Sentiment - Training Set";
+	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Training";
+	$title = "Actual vs Predicted Tag Sentiment - Training Set";
 	query_and_print_table($query,$title," ");
 	
-	$query = "SELECT * FROM mydb.Tag_Sentiment_Test";
-	$title = "Predicted vs Actual Tag Sentiment - Test Set";
+	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Test";
+	$title = "Actual vs Predicted Tag Sentiment - Test Set";
 	query_and_print_table($query,$title," ");
 ?>
 
@@ -190,12 +190,22 @@ We run a regression on the total sample or artists, as well as a subset which is
 We get statistically significant coefficient estimates for all our indepedant variables apart from those relating to tags in the new and up and coming subset which we put down to lack of tag data. As expected, both listener average tag count and the ratio of positive to total tags, are positively correlated with artist listen count. We also find that listener mean centrality is positively correlated with artist listen count, however out regression does not capture very well the listen counts for artists with very high mean user centrality. </p>	
 <?php
 
-    $query = "SELECT * FROM mydb.Regression_Coefficients";
+    $query = "SELECT row_names as Variables, 
+                     round(Estimate,4) as Estimate, 
+                     round(Std_Error,4) as Std_Error, 
+                     round(t_Value,4) as t_Value, 
+                     round(Prob_gt_t,4) as Prob_gt_t
+              FROM mydb.Regression_Coefficients";
 	$title = "Regression Coefficients - Total Sample";
 	query_and_print_table($query,$title," ");
 	
-	$query = "SELECT * FROM mydb.Regression_Coefficients_Subset";
-	$title = "Regression Coefficients - Subset";
+	$query = "SELECT row_names as Variables, 
+                     round(Estimate,4) as Estimate, 
+                     round(Std_Error,4) as Std_Error, 
+                     round(t_Value,4) as t_Value, 
+                     round(Prob_gt_t,4) as Prob_gt_t
+              FROM mydb.Regression_Coefficients_Subset";
+	$title = "Regression Coefficients - New Artist Subset";
 	query_and_print_table($query,$title," ");
 ?>
 
