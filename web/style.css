@@ -27,7 +27,7 @@ body {
 	margin-top: 15px;
     margin-left: 70px;
 	margin-right: 50px;
-	background-image: #000;
+	background: #000;
 	padding-top: 5px;
 	padding-left: 15px;
 	padding-right: 15px;
@@ -85,8 +85,8 @@ body {
 	*/
 }
 
-#main h1 { margin-top: 0.2em; margin-bottom: 0.2em; border-bottom: 1px solid #000;}
-#main h2 { color: #E12121; margin-top: 0.2em; margin-bottom: 0.2em; border-bottom: 1px solid #e0e0e0;}
+#main h1 { margin-top: 0.2em; margin-bottom: 1em; border-bottom: 1px solid #000;}
+#main h2 { color: #E12121; margin-top: 0.2em; margin-bottom: 0.4em; border-bottom: 1px solid #e0e0e0;}
 #main h3 { margin-top: 0.2em; margin-bottom: 0.2em; border-bottom: 1px solid #e0e0e0;}
 
 #main a { color: #1C2A57;  }
