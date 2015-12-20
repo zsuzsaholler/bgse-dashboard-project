@@ -192,18 +192,18 @@ We get statistically significant coefficient estimates for all our indepedant va
     
     $query = "SELECT row_names as Variables, 
                      round(Estimate,4) as Estimate, 
-                     round(Std_Error,4) as Std.Error, 
-                     round(t_Value,4) as t-Value, 
-                     round(Prob_gt_t,4) as P-value
+                     round(Std_Error,4) as StdError, 
+                     round(t_Value,4) as tValue, 
+                     round(Prob_gt_t,4) as pValue
               FROM mydb.Regression_Coefficients";
 	$title = "Regression Coefficients - Total Sample";
 	query_and_print_table($query,$title," ");
 	
 	$query = "SELECT row_names as Variables, 
                      round(Estimate,4) as Estimate, 
-                     round(Std_Error,4) as Std.Error, 
-                     round(t_Value,4) as t-Value, 
-                     round(Prob_gt_t,4) as P-value
+                     round(Std_Error,4) as StdError, 
+                     round(t_Value,4) as tValue, 
+                     round(Prob_gt_t,4) as pValue
               FROM mydb.Regression_Coefficients_Subset";
 	$title = "Regression Coefficients - New Artist Subset";
 	query_and_print_table($query,$title," ");

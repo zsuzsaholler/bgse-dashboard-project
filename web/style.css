@@ -47,7 +47,7 @@ body {
 	}      
 
 #header h2  { 
-    margin:5px;
+    margin:0px;
 	color: #3333;
 	vertical-align: bottom;
 	color: #e0e0e0;
@@ -156,6 +156,7 @@ h2 {
 h3 {
 	font: 1.3em Arial, Verdana, sans-serif;
 	color:  #000;
+	margin: 5px;
 }
 h4 {
 	font: 1em Arial, Verdana, sans-serif;
