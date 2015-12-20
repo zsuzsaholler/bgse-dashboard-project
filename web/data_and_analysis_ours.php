@@ -176,11 +176,15 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 	
 	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Training";
 	$title = "Actual vs Predicted Tag Sentiment - Training Set";
+	echo <table class="inlineTable">;
 	query_and_print_table($query,$title," ");
+	echo </table>;
 	
 	$query = "SELECT row_names as Sentiment, Negative, Neutral, Positive FROM mydb.Tag_Sentiment_Test";
 	$title = "Actual vs Predicted Tag Sentiment - Test Set";
+	echo <table class="inlineTable">;
 	query_and_print_table($query,$title," ");
+	echo </table>;
 ?>
 
 		
@@ -189,7 +193,7 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 We run a regression on the total sample or artists, as well as a subset which is made up of artists who only appeared in the database in the last 16 months and is therefore meant to represent "new and up and coming" artists.
 We get statistically significant coefficient estimates for all our indepedant variables apart from those relating to tags in the new and up and coming subset which we put down to lack of tag data. As expected, both listener average tag count and the ratio of positive to total tags, are positively correlated with artist listen count. We also find that listener mean centrality is positively correlated with artist listen count, however out regression does not capture very well the listen counts for artists with very high mean user centrality. </p>	
 <?php
-
+    
     $query = "SELECT row_names as Variables, 
                      round(Estimate,4) as Estimate, 
                      round(Std_Error,4) as Std_Error, 
