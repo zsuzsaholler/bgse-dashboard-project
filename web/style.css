@@ -85,8 +85,9 @@ body {
 	*/
 }
 
+#main h1 { margin-top: 0.2em; margin-bottom: 0.2em; border-bottom: 1px solid #000;}
 #main h2 { color: #E12121; margin-top: 0.2em; margin-bottom: 0.2em; border-bottom: 1px solid #e0e0e0;}
-#main h3 { margin-top: 0.2em; }
+#main h3 { margin-top: 0.2em; margin-bottom: 0.2em; border-bottom: 1px solid #e0e0e0;}
 
 #main a { color: #1C2A57;  }
 #main a:visited { color: #1C2A57;  }
