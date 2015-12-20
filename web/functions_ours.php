@@ -47,7 +47,7 @@ function query_and_print_table($query,$title) {
     // Attempting to print $result won't allow access to information in the resource
     // One of the mysql result functions must be used
     // See also mysql_result(), mysql_fetch_array(), mysql_fetch_row(), etc.
-    echo "<h2>" . $title . "</h2>";
+    echo "<h3>" . $title . "</h3>";
     echo "<table align='center'>";
     echo "<thead><tr></tr>";
     $row = mysql_fetch_assoc($result);
