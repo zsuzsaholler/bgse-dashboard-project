@@ -174,7 +174,7 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 <?php
 	// Predicted and Actual pivot tables for tag sentiment on training set
 	
-	$query = "SELECT * FROM Tag_Sentiment_Training";
+	$query = "SELECT * FROM mydb.Tag_Sentiment_Training";
 	$title = "Predicted vs Actual Tag Sentiment - Training Set";
 	query_and_print_table($query,$title," ");
 ?>
