@@ -170,6 +170,15 @@
 <p>The notion behind this measure is to examine whether users opinions and feelings could be indicative of an artist's popularity.
 Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutral,negative respectively. Next, we counted the positive/neutral/negative words in given tag using an exhaustive list of words classified from -5 to 5 as very negative to very positive respectively. Finally, we trained the Naive Bayesian Classifier using a random subset of classified tags in order to predict the sentiment of the tags.
 </p>
+
+<?php
+	// Predicted and Actual pivot tables for tag sentiment on training set
+	
+	$query = "SELECT * FROM Tag_Sentiment_Training";
+	$title = "Predicted vs Actual Tag Sentiment - Training Set";
+	query_and_print_table($query,$title," ");
+?>
+
 		
     <h2>Regression Analysis:</h2>
 <p>We run an artist level regression in order to explore the relationship between the characteristics of the audience of an artist and his/her success. Our regression is a simple linear regression with non-linear transformations to account for curvature and skewedness. Then we control for the first appearence of an artist in the LAST.FM database to check if our results change or are significantly different.

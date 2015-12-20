@@ -192,6 +192,11 @@ fit.subset.results = coeftest(fit.subset,fit.subset$newse)
 dbSendQuery(con,"DROP TABLE IF EXISTS Regression_Vars")
 dbWriteTable(con, "Regression_Vars", RegressionVars, row.names=FALSE)
 
+TagSent_train <- as.data.frame.matrix(confTable.train, row.names=c("predicted negative", "predicted neutral", "predicted positive"))
+names(TagSent_train) <- c("actual negative", "actual neutral", "actual positive")
+dbSendQuery(con, "DROP TABLE IF EXISTS Tag_Sentiment_Training")
+dbWriteTable(con, "Tag_Sentiment_Training", TagSent_train)
+
 ##########################GRAPHS#############################
 graphartists <- dbGetQuery(con, "SELECT t1.artistIDNEW, t1.artistName
 	          FROM mydb.ArtistsFINAL t1 JOIN
