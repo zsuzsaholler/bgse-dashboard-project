@@ -95,7 +95,8 @@ for (elements in afin_list_split) {
 scores.classification[,4:13] = scores.classification[,4:13] > 0
 scores.classification[,4:13] = lapply(scores.classification[,4:13],function(x){factor(x,levels=c("TRUE","FALSE"))})
 
-##Split sample data to training and test set 
+##Split sample data to training and test set
+set.seed(412334)
 train.sample = sample(unlist(scores.classification[,1]),200)
 train.sample = scores.classification$tagID %in% train.sample
 scores.classification.train = scores.classification[train.sample,]
