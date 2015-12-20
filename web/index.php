@@ -61,7 +61,8 @@ function showgraph(artist) {
 
 </script>
 <body>
-	<div id="header"><h1>THE LAST.FM NETWORK AND ARTIST POPULARITY</h1></div>
+	<div id="header"><h1>THE LAST.FM NETWORK</h1>
+					<h2>Relationship of social behaviour of users and artist popularity</h2></div>
 
 	<div id="menu">
 		<a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> &middot;
