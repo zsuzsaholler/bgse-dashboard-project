@@ -192,10 +192,21 @@ fit.subset.results = coeftest(fit.subset,fit.subset$newse)
 dbSendQuery(con,"DROP TABLE IF EXISTS Regression_Vars")
 dbWriteTable(con, "Regression_Vars", RegressionVars, row.names=FALSE)
 
-TagSent_train <- as.data.frame.matrix(confTable.train, row.names=c("predicted negative", "predicted neutral", "predicted positive"))
-names(TagSent_train) <- c("actual negative", "actual neutral", "actual positive")
+TagSent_train <- as.data.frame.matrix(confTable.train, row.names=c("negative", "neutral", "positive"))
+names(TagSent_train) <- c("negative", "neutral", "positive")
 dbSendQuery(con, "DROP TABLE IF EXISTS Tag_Sentiment_Training")
 dbWriteTable(con, "Tag_Sentiment_Training", TagSent_train)
+
+TagSent_test <- as.data.frame.matrix(confTable.test, row.names=c("predicted negative", "predicted neutral", "predicted positive"))
+names(TagSent_test) <- c("actual negative", "actual neutral", "actual positive")
+dbSendQuery(con, "DROP TABLE IF EXISTS Tag_Sentiment_Test")
+dbWriteTable(con, "Tag_Sentiment_Test", TagSent_test)
+
+dbSendQuery(con, "DROP TABLE IF EXISTS Regression_Coefficients")
+dbWriteTable(con, "Regression_Coefficients", as.data.frame(fit.results[1:5,]))
+
+dbSendQuery(con, "DROP TABLE IF EXISTS Regression_Coefficients_Subset")
+dbWriteTable(con, "Regression_Coefficients_Subset", as.data.frame(fit.subset.results[1:5,]))
 
 ##########################GRAPHS#############################
 graphartists <- dbGetQuery(con, "SELECT t1.artistIDNEW, t1.artistName

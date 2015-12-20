@@ -177,18 +177,26 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 	$query = "SELECT * FROM mydb.Tag_Sentiment_Training";
 	$title = "Predicted vs Actual Tag Sentiment - Training Set";
 	query_and_print_table($query,$title," ");
+	
+	$query = "SELECT * FROM mydb.Tag_Sentiment_Test";
+	$title = "Predicted vs Actual Tag Sentiment - Test Set";
+	query_and_print_table($query,$title," ");
 ?>
 
 		
     <h2>Regression Analysis:</h2>
-<p>We run an artist level regression in order to explore the relationship between the characteristics of the audience of an artist and his/her success. Our regression is a simple linear regression with non-linear transformations to account for curvature and skewedness. Then we control for the first appearence of an artist in the LAST.FM database to check if our results change or are significantly different.
-In our findings we see that centrality plays a significant role for the success of an artist in both the regression on the total sample as well as when we control for the first appearence of an artist.</p>	
+<p>We run an artist level regression in order to explore the relationship between the characteristics of the audience of an artist and his/her success. Our regression is a simple linear regression with non-linear transformations to account for curvature and skewedness of the independent variables. We also control for the amount of time an artist has been present in the database by looking at the date they were first tagged.
+We run a regression on the total sample or artists, as well as a subset which is made up of artists who only appeared in the database in the last 16 months and is therefore meant to represent "new and up and coming" artists.
+We get statistically significant coefficient estimates for all our indepedant variables apart from those relating to tags in the new and up and coming subset which we put down to lack of tag data. As expected, both listener average tag count and the ratio of positive to total tags, are positively correlated with artist listen count. We also find that listener mean centrality is positively correlated with artist listen count, however out regression does not capture very well the listen counts for artists with very high mean user centrality. </p>	
 <?php
 
-//	$query = "SELECT * FROM ecommerce.apriori";
-//	$title = "Recommendation rules";
-//	query_and_print_table($query,$title);
-//	echo "";
+    $query = "SELECT * FROM mydb.Regression_Coefficients";
+	$title = "Regression Coefficients - Total Sample";
+	query_and_print_table($query,$title," ");
+	
+	$query = "SELECT * FROM mydb.Regression_Coefficients_Subset";
+	$title = "Regression Coefficients - Subset";
+	query_and_print_table($query,$title," ");
 ?>
 
 
