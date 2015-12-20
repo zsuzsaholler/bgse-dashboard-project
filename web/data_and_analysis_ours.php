@@ -11,7 +11,7 @@
 ?>
 	<div id="data" style="display: none">
 	
-	<h2>Data</h2>
+	<h1>Data</h1>
 	
 	<p>We use the <b><a href="http://grouplens.org/datasets/hetrec-2011/" target="_blank">LAST.FM dataset</a></b> which contains approximately 18,000 distinct artists, 1,900 Users, 12,000 Tags(made by users), 13,000 Connections among Users and 93,000 Connections between Users and Artists. The dataset lacks time dimension which makes the analysis challenging.</p>
 	
@@ -31,7 +31,7 @@
    query_and_print_graph($query,$title,"Listen Count (1000's)");
 ?>
 
-<h3>Centrality</h3>
+<h2>Centrality</h2>
 <p>The idea behind this measure is to take advantage of the actual connections between users in the database. Intuitively, the more central a user is the more infuential he becomes. Therefore the success of a particular artist is directly linked with the centrality of his fans. The measure for centrality which we chose is the eigenvector centrality. In this measure a certain user is not considered influential only if he has many friends in the dataset but also when his friends have many connections as well. The chart below shows the average centrality of the people listening to each of the artists shown in the above graph.</p>
 	
 <?php
@@ -48,7 +48,7 @@
 	query_and_print_graph($query,$title," ");
 ?>
 
-<h3>Tag Count</h3>
+<h2>Tag Count</h2>
 <p>This is another aspect of the users' social behavior and measures user activity. The intuition is that the opinion of active users will affect more people. We simply aggregated the number of counts for each user and then computed the average number of tags for each artist.</p>
 <?php
 	// Average tag count measure for top 20 artists. 
@@ -69,7 +69,7 @@
 </div>
 	
 <div id="analysis" style="display: none">
-	<h2>Analysis</h2>
+	<h1>Analysis</h1>
 
 <p> Please select an artist to see how the network of his or her users looks like! Check out the tags related to that artist as well! </p>
 
@@ -166,7 +166,7 @@
 
 
 	
-	<h3>Tag Sentiment Analysis.</h3>
+	<h2>Tag Sentiment Analysis</h2>
 <p>The notion behind this measure is to examine whether users opinions and feelings could be indicative of an artist's popularity.
 Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutral,negative respectively. Next, we counted the positive/neutral/negative words in given tag using an exhaustive list of words classified from -5 to 5 as very negative to very positive respectively. Finally, we trained the Naive Bayesian Classifier using a random subset of classified tags in order to predict the sentiment of the tags.
 </p>
@@ -184,7 +184,7 @@ Initially, we classified by hand a small subset of tags 1,0,-1 as positive,neutr
 ?>
 
 		
-    <h3>Regression Analysis</h3>
+    <h2>Regression Analysis</h2>
 <p>We run an artist level regression in order to explore the relationship between the characteristics of the audience of an artist and his/her success. Our regression is a simple linear regression with non-linear transformations to account for curvature and skewedness of the independent variables. We also control for the amount of time an artist has been present in the database by looking at the date they were first tagged.
 We run a regression on the total sample or artists, as well as a subset which is made up of artists who only appeared in the database in the last 16 months and is therefore meant to represent "new and up and coming" artists.
 We get statistically significant coefficient estimates for all our indepedant variables apart from those relating to tags in the new and up and coming subset which we put down to lack of tag data. As expected, both listener average tag count and the ratio of positive to total tags, are positively correlated with artist listen count. We also find that listener mean centrality is positively correlated with artist listen count, however out regression does not capture very well the listen counts for artists with very high mean user centrality. </p>	
