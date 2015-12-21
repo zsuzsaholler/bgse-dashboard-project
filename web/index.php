@@ -76,9 +76,9 @@ function showgraph(artist) {
 			<h1>Home</h1>
 			<h2>The challenge</h2>
 			
-			<p><b><a href="http://www.last.fm/" target="_blank">LAST.FM</a></b> is a music website providing personalized recommendations and offering various social networking and collaborative features for its users. The a recommendation system attempt to identify the music needs of their users and make suggestions for their future listening based on the users' listening history and the social connections.</p>
+			<p><b><a href="http://www.last.fm/" target="_blank">LAST.FM</a></b> is a music website providing personalized recommendations and offering various social networking and collaborative features for its users. The recommendation system attempts to identify the music needs of its users and makes suggestions for their future listening based on the users' listening history and their social connections.</p>
 
-<p>In our project we exploit the information collected on users but instead of focusing on the users' needs we provide an artist-centered tool. For an artist the most essential element, besides his music, that defines and makes him successful is his audience. Our aim is to explore the relationship between the success of a musician and the distinct characteristics of their fans. We believe that the social connections and social activity of an artist's audience carries useful information on his current and future success. Also, an automatized analysis of the sentiments embodied in the tags and labels given by the users might reveal interesting aspects of the attitude of the audience towards an artist.</p>
+<p>In our project we exploit the information collected on users but instead of focusing on the users' needs we provide an artist-centered tool. For an artist the most essential element, besides his music, that defines and makes him successful is his audience. Our aim is to explore the relationship between the success of a musician and the distinct characteristics of his fans. We believe that the social connections and social activity of an artist's audience carries useful information on his current and future success. Also, an automatized analysis of the sentiments embodied in the tags and labels given by the users might reveal interesting aspects of the attitude of the audience towards an artist.</p>
 
 			<h2>The solution</h2>
 				
