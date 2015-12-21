@@ -94,7 +94,7 @@
 ?>
 
 <h2>User network and tags cloud of top artists</h2>
-<p> Before we turn to the regression analysis let's see a few examples! Please select an artist to see how the network of his or her users looks like! Check out the tags related to that artist as well! Let's see if we can identify any patterns or differences between artists? </p>
+<p> Before we turn to the regression analysis let's see a few examples! Please select an artist to see how the network of his or her users looks like! Check out the tags related to that artist as well! Blue color indicates tags classified as positive. Let's see if we can identify any patterns or differences between artists. </p>
 
 <div>
  <form>
