@@ -13,9 +13,9 @@
 	
 	<h1>Data</h1>
 	
-	<p>We use the <b><a href="http://grouplens.org/datasets/hetrec-2011/" target="_blank">LAST.FM dataset</a></b> which contains approximately 18,000 distinct artists, 1,900 Users, 12,000 Tags(made by users), 13,000 Connections among Users and 93,000 Connections between Users and Artists. The dataset lacks time dimension which makes the analysis challenging.</p>
+	<p>We use the <b><a href="http://grouplens.org/datasets/hetrec-2011/" target="_blank">LAST.FM dataset</a></b> which contains approximately 18,000 artists, 1,900 users, 12,000 tags (created by users), 13,000 connections among users and 93,000 user-artist connections with listen count information. The dataset lacks a time dimension for the listen count information, which makes the analysis challenging.</p>
 	
-	<p>Success of an artist is measured by the listen counts. The chart below shows the top 20, most popular artists, based on number their number of listens.</p>
+	<p>Success of an artist is measured by the listen counts. The chart below shows the top 20, most popular artists, based on their number of listens.</p>
 	
 <?php
     // Top 20 Artists
@@ -32,7 +32,7 @@
 ?>
 
 <h2>Centrality</h2>
-<p>The idea behind this measure is to take advantage of the actual connections between users in the database. Intuitively, the more central a user is the more infuential he becomes. Therefore the success of a particular artist is directly linked with the centrality of his fans. The measure for centrality which we chose is the eigenvector centrality. In this measure a certain user is not considered influential only if he has many friends in the dataset but also when his friends have many connections as well. The chart below shows the average centrality of the people listening to each of the artists shown in the above graph.</p>
+<p>The idea behind this measure is to take advantage of the actual connections between users in the database. Intuitively, the more central a user is, the more infuential he should be. We therefore expect the success of a particular artist to be directly linked with the centrality of his fans. The measure for centrality which we chose is eigenvector centrality. In this measure a certain user is not considered influential only if he has many friends in the dataset but also when his friends have many connections as well. Using this measure, each user has a centrality score between 0 and 1, where 1 is the most central. The chart below shows the average centrality of listeners for each of the top 20 artists shown in the above graph.</p>
 	
 <?php
 	// Mean centrality measure for top 20 artists. 
@@ -49,7 +49,7 @@
 ?>
 
 <h2>Tag Count</h2>
-<p>This is another aspect of the users' social behavior and measures user activity. The intuition is that the opinion of active users will affect more people. We simply aggregated the number of counts for each user and then computed the average number of tags for each artist.</p>
+<p>This is another aspect of the users' social behavior and is a measure of user activity. Similar to central users, we expect that more active users will be more influential and thus the artists they listen to to be more success. We simply counted the number of tags created by each user (on all artists) and then aggregated this to artist level by taking the average number or tags created by an artist's listeners.</p>
 <?php
 	// Average tag count measure for top 20 artists. 
 	
